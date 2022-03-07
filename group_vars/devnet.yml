@@ -1,0 +1,13 @@
+ntp_servers:
+- 0.north-america.pool.ntp.org
+- 1.north-america.pool.ntp.org
+
+dns_servers:
+- 1.1.1.1
+
+compliance_hipaa_ntp_servers:
+- 2.north-america.pool.ntp.org
+- 3.north-america.pool.ntp.org
+
+compliance_hipaa_dns_servers:
+- 8.8.8.8

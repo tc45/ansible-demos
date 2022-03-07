@@ -1,0 +1,10 @@
+# - name: Enable NTP feature
+#   cisco.nxos.nxos_feature:
+#     state: enabled
+#     feature: ntp
+- name: Set NTP servers
+  cisco.nxos.nxos_ntp_global:
+    config:
+      servers: 
+      - server: item
+  loop: '{{ ntp_servers }}'

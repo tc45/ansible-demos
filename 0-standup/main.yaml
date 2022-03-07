@@ -1,0 +1,26 @@
+---
+- name: Enable SSH for Nexus devices
+  hosts: telnet
+  gather_facts: false
+  connection: local
+  # vars:
+  #   ansible_become: yes
+  #   ansible_become_method: enable
+  tasks:
+    # - raw: "telnet 10.10.20.178"
+    #   register: telnetout
+    # - debug:
+    #     var: telnetout
+    - name: Enable SSH feature
+      ansible.netcommon.telnet:
+        host: 10.10.20.178
+        port: 23
+        user: cisco
+        password: cisco
+        login_prompt: 'login: '
+        password_prompt: 'Password: '
+        send_newline: yes
+        prompts:
+          - '># '
+        command:
+          - feature ssh

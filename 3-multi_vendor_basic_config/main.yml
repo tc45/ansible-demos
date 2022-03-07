@@ -1,0 +1,13 @@
+---
+- name: Set NTP and DNS on Cisco IOS
+  hosts: devnet
+  gather_facts: false
+  vars:
+    ansible_become: yes
+    ansible_become_method: enable
+    recommended_version: "18.03.01"
+  tasks:
+  - name: Set NTP servers
+    include_tasks: 'tasks/{{ ansible_network_os }}_ntp.yml'
+  - name: Set DNS servers
+    include_tasks: 'tasks/{{ ansible_network_os }}_dns.yml'

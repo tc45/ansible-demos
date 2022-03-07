@@ -1,0 +1,6 @@
+- name: Set NTP servers
+  cisco.ios.ios_ntp_global:
+    config:
+      servers: 
+      - server: item
+  loop: '{{ ntp_servers }}'

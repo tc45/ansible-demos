@@ -1,0 +1,3 @@
+  - name: Set DNS servers
+    cisco.nxos.nxos_config:
+      lines: 'ip name-server {{ dns_servers.0 }}'

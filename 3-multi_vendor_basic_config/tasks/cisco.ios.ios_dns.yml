@@ -1,0 +1,3 @@
+  - name: Set DNS servers
+    cisco.ios.ios_config:
+      lines: 'ip name-server {{ dns_servers.0 }}'
