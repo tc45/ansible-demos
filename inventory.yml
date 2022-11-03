@@ -2,7 +2,7 @@ all:
   children:
     devnet:
       children:
-        devnet-nxos:
+        devnet_nxos:
           hosts:
             10.10.20.177:
               ansible_user: cisco
@@ -13,7 +13,7 @@ all:
           vars:
               ansible_connection: ansible.netcommon.network_cli
               ansible_network_os: cisco.nxos.nxos            
-        devnet-ios:
+        devnet_ios:
           hosts:
             10.10.20.175:
               ansible_user: cisco
@@ -25,7 +25,7 @@ all:
           vars:
               ansible_connection: ansible.netcommon.network_cli
               ansible_network_os: cisco.ios.ios
-    eden-prairie:
+    eden_prairie:
       hosts:
         e7csco0csr1kv01.datalinklabs.local:
           ansible_user: admin

@@ -1,6 +1,6 @@
 ---
 - name: Configure 802.1X on NX-OS devices with a template
-  hosts: devnet-nxos
+  hosts: devnet_nxos
   gather_facts: no
   vars:
     ansible_become: yes
