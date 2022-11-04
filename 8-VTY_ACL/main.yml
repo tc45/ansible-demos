@@ -1,7 +1,7 @@
 ---
 - name: Configure VTY ACL on IOS devices
   hosts: devnet_ios
-  gather_facts: yes
+  gather_facts: no
   vars:
     ansible_become: yes
     ansible_become_method: enable
