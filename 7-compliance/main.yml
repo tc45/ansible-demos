@@ -1,6 +1,6 @@
 ---
 - name: Set global configurations
-  hosts: devnet-ios
+  hosts: devnet_ios
   gather_facts: false
   vars:
     ansible_connection: ansible.netcommon.network_cli

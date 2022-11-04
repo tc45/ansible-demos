@@ -1,6 +1,6 @@
 ---
 - name: Query IOS-XE version
-  hosts: devnet-ios
+  hosts: devnet_ios
   gather_facts: false
   vars:
     ansible_become: yes
