@@ -1,0 +1,23 @@
+---
+- name: Configure VTY ACL on IOS devices
+  hosts: devnet_ios
+  gather_facts: no
+  tasks:
+    - name: Replaces device configuration of listed acls with provided configuration
+      cisco.ios.ios_acls:
+        -afi: ipv4
+        acls:
+          - name: VTY_ACL2
+            acl_type: extended
+            aces:
+              - grant: permit
+                sequence: 10
+                source:
+                  address: 192.168.0.0
+                  wildcard_bits: 0.0.255.255
+                destination:
+                  any: true
+                  port_protocol:
+                    eq: ssh
+
+
