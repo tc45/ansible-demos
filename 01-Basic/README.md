@@ -9,7 +9,7 @@ This lab has two sections:
  commands using the RAW module (e.g. using SSH directly).  Multiple examples will be given to include showing commands, 
  parsing commands using grep, and outputting commands to text files.
  
-**Simple playbooks** - This seciton will expand on the previous section by creating reusable playbooks which can be stored 
+**Simple playbooks** - This section will expand on the previous section by creating reusable playbooks which can be stored 
 and shared for cross-team use.  Much more advanced functionality is allowed in a playbook but it comes with additional 
 complexity. We will look at three Cisco modules in this section: cisco.ios.ios_commands, cisco.ios.ios_config, and 
 cisco.ios.ios_facts.
@@ -19,7 +19,7 @@ practicing in a lab environment.  Consult with an ansible professional for using
 
 ## Prerequisites
 
-####sshpass
+#### sshpass
 
 In this simple example we are going to have the DevBox prompt us for a password when accessing our inventory devices as 
 opposed to storing them in either the inventory file or password vault.  in order to do this we must install **sshpass**
