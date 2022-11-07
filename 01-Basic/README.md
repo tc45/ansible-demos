@@ -143,3 +143,45 @@ ansible <<hostname>> -m raw -a "<<command>>" -u <<username>> -k
     ```
 ## Simple Playbooks - Beginning with cisco.ios.commands
 
+Next step is to interact with Cisco devices much like we have, but using playbooks.  A playbook is a repeatable, re-usable 
+config management/deployment file.  With [playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html) 
+we can execute tasks, request command output, manipulate commands and more.  Ansible can use many modules from multiple 
+vendors in playbooks but we will be using the [cisco.ios](https://docs.ansible.com/ansible/latest/collections/cisco/ios/index.html)
+ module in our playbook.  Three basic modules exist for interacting with Cisco IOS devices, ios_command, ios_config, and ios_facts.
+
+Playbooks are saved into the appropriate folders in this directory structure.  Review the playbook for complete syntax 
+and execute using the commands listed below.
+
+playbooks are executed using the following command structure:
+
+```
+ansible-playbook <<group_name>> -i <<inventory_file>> <<playbook_name>>
+``` 
+
+### ios_command 
+ [ios_command](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_command_module.html#ansible-collections-cisco-ios-ios-command-module)
+  allows us to send arbitrary commands to the device and return results.  We can specify wait_for behavior to list conditions 
+  before moving forward with a task.  This can be for a single line or other commands that require parent 
+ configuration and then chid commands (e.g. acl name then acl entries). 
+ 
+#### 01-run_show_version
+Run a show version command on multiple devices
+
+Playbook Excerpt
+```
+- name: run show version on remote devices
+  cisco.ios.ios_command:
+    commands: show version
+```
+
+Execute playbook
+```
+ansible-playbook -i inventory.yml 01-run_show_version/main.yml
+```
+
+
+ 
+ ### ios_config
+ 
+ 
+ ### ios_facts
