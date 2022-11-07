@@ -3,13 +3,16 @@
 This lab assumes that you are using the Cisco DevNet Sandbox titled Cisco Modeling Labs (CML): Enterprise, 
 although you can build this lab in your own environment using GNS3, CML, or Eve-NG.
 
-This lab has three sections:    
-- Ad-hoc commands (Using Ansible without playbooks)
-- RAW Ansible module usage
-- Simple inventory
-- Simple playbooks
-    - Variables
-    - ios_command or ios_config modules
+This lab has two sections: 
+   
+**Ad-hoc commands** - In this section we will look at using ansible directly from the CLI to execute
+ commands using the RAW module (e.g. using SSH directly).  Multiple examples will be given to include showing commands, 
+ parsing commands using grep, and outputting commands to text files.
+ 
+**Simple playbooks** - This seciton will expand on the previous section by creating reusable playbooks which can be stored 
+and shared for cross-team use.  Much more advanced functionality is allowed in a playbook but it comes with additional 
+complexity. We will look at three Cisco modules in this section: cisco.ios.ios_commands, cisco.ios.ios_config, and 
+cisco.ios.ios_facts.
 
 NOTE: These steps are not intended to be used in a production network. They are only offered as a guide for 
 practicing in a lab environment.  Consult with an ansible professional for using ansible in production environments.
@@ -24,6 +27,17 @@ opposed to storing them in either the inventory file or password vault.  in orde
  
 ```
 sudo yum install sshpass
+```
+
+#### cisco.ios & cisco.nxos
+
+Some modules that Ansible uses do not come pre-installed.  These include two we are going to use, cisco.ios and cisco.nxos.  
+From the command line on the DevBox type the following commands to install them.  We will use ansible-galaxy to install 
+the collections using known good working versions of the modules.
+
+```
+ansible-galaxy collection install cisco.ios:==3.3.2
+ansible-galaxy collection install cisco.nxos:==4.0.0
 ```
 
 ## Configuration and Inventory File
@@ -179,8 +193,6 @@ Execute playbook
 ansible-playbook -i inventory.yml 01-run_show_version/main.yml
 ```
 
-
- 
  ### ios_config
  
  
