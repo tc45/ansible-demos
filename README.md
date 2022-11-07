@@ -10,19 +10,20 @@ The repository is broken up into Basic, Intermediary, and Advanced subdirectorie
 having their own unique instructions and playbooks. All subsections will use the same method of 
 connectivity listed below.
 
-- **Basic** 
+- [**01-Basic**](01-Basic/README.md)
+    - Ad-hoc commands
     - RAW Ansible module usage
     - Simple inventory
     - Simple playbooks
         - Variables
         - ios_command or ios_config modules
-- **Intermediary**
+- [**02-Intermediary**](02-Intermediary/README.md)
     - Structured static inventory files
     - Mature playbooks
         - Loops
         - Reuse variables
         - ios_command, ios_config & specific function modules
-- **Advanced (FUTURE)**
+- [**03-Advanced (FUTURE)**](03-Advanced/README.md)
     - Dynamic inventory
     - Complex playbooks
         - Chaining multiple plays
@@ -139,7 +140,10 @@ This command will reach out to github and copy the main branch of this repositor
 
 ## Sub-section catalog
 
-- Basic
-- Intermediary
-- Advanced
+Labs are broken up into the following sub-sections.  Go to the README.md files in each of the directories to read further 
+about how to use the labs.
+  
+- [01-Basic](01-Basic/README.md)
+- [02-Intermediary](02-Intermediary/README.md)
+- [03-Advanced](03-Advanced/README.md)
 
