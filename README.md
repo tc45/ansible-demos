@@ -6,6 +6,14 @@ This repository is intended to provide demos for Ansible network devices within 
 Sandbox. These are intended to illustrate common functionality available within the ansible 
 ecosystem specific to network equipment. 
 
+The lab uses Cisco DevNet Sandboxes as an underlying mechanism to quickly get the user in a lab environment that is generally available 
+to all that provides the basic tools and test equipment necessary to immediately begin using Ansible for verification 
+and configuration management.  Optionally the user can install their own LINUX box running Ansible to interact with any 
+network devices.  Please be sure to test all commands in a lab environment before moving to production. 
+
+
+## Structure 
+
 The repository is broken up into Basic, Intermediary, and Advanced subdirectories with each one 
 having their own unique instructions and playbooks. All subsections will use the same method of 
 connectivity listed below.
@@ -15,21 +23,22 @@ connectivity listed below.
     - RAW Ansible module usage
     - Simple inventory
     - Simple playbooks
+        - Registers and Debug
         - Variables
-        - ios_command or ios_config modules
+        - ios_command, ios_config, and ios_facts modules
 - [**02-Intermediary**](02-Intermediary/README.md)
     - Structured static inventory files
     - Mature playbooks
         - Loops
         - Reuse variables
-        - ios_command, ios_config & specific function modules
+        - Functionally specific modules
 - [**03-Advanced (FUTURE)**](03-Advanced/README.md)
     - Dynamic inventory
     - Complex playbooks
         - Chaining multiple plays
         - Advancing functionality using RAW python
 
-## Connectivity
+## Getting started with Cisco DevNet Sandbox labs
 
 All labs are intended to be used with the Cisco DevNet Sandbox lab titled 
 Cisco Modeling Labs (CML): Enterprise v2.2.2. These labs change periodically change and as a result the 
@@ -41,7 +50,7 @@ All devices in the sandbox can be accessed with either SSH or Telnet.
 
 NOTE: Ansible requires SSH for connectivity which is enabled by default on all of the IOS-XE and NX-OS devices.  
 
-### Topology
+#### Topology
 The topology for the lab consist of 4 network devices, 2 IOS-XE and 2 NX-OS devices.  Two additional hosts are available 
 connected to each local network segment and a DevBox which is used for programmatic interaction with the devices.  
  
@@ -74,10 +83,6 @@ If you choose to do this make sure you have met the following requirements:
     - cisco.nxos
 
 Once logged in you may continue with the lab.
-
-
-
-
 
 ### DevBox interaction
 

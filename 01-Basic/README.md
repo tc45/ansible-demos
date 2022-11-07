@@ -3,7 +3,7 @@
 This lab assumes that you are using the Cisco DevNet Sandbox titled Cisco Modeling Labs (CML): Enterprise, 
 although you can build this lab in your own environment using GNS3, CML, or Eve-NG.
 
-This lab has two sections: 
+This lab has two major sections: 
    
 **Ad-hoc commands** - In this section we will look at using ansible directly from the CLI to execute
  commands using the RAW module (e.g. using SSH directly).  Multiple examples will be given to include showing commands, 
@@ -27,6 +27,14 @@ opposed to storing them in either the inventory file or password vault.  in orde
  
 ```
 sudo yum install sshpass
+```
+
+### ansible-pylibssh
+
+Install pylibssh library for Ansible.
+
+```
+pip3 install ansible-pylibssh
 ```
 
 #### cisco.ios & cisco.nxos
@@ -181,16 +189,37 @@ ansible-playbook <<group_name>> -i <<inventory_file>> <<playbook_name>>
 #### 01-run_show_version
 Run a show version command on multiple devices
 
-Playbook Excerpt
+01-run_show_version/main.yml playbook text
 ```
+---
 - name: run show version on remote devices
-  cisco.ios.ios_command:
-    commands: show version
+  hosts: all
+  gather_facts: no
+
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.ios.ios
+    ansible_become: yes
+    ansible_gecome_method: enable
+
+  tasks:
+    - name: run show version on remote devices
+      cisco.ios.ios_command:
+        commands: show version
 ```
 
 Execute playbook
 ```
-ansible-playbook -i inventory.yml 01-run_show_version/main.yml
+ansible-playbook -i inventory.yml 01-run_show_version/main.yml -u cisco -k
+```
+
+Notice when the playbook is ran we get to OKs from 10.10.20.175 and .176, but failed from .177 and .178.  This is due 
+to the latter being NXOS devices however we specified the network_os and cisco.ios.  
+
+To get around this, specify the group with the ```-l devnet_ios``` option being added to the command.
+
+```
+ansible-playbook -l devnet_ios -i inventory.yml 01-run_show_version/main.yml -u cisco -k
 ```
 
  ### ios_config
