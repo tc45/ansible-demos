@@ -9,10 +9,6 @@
       when: ansible_network_os=='cisco.nxos.nxos'
       register: nxos_show_version
 
-    - name: Display Show Versions from NXOS devices
-      debug:
-        var: nxos_show_version.stdout_lines
-
     - name: run show version on Cisco IOS devices
       cisco.ios.ios_command:
         commands: show version
