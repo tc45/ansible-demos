@@ -25,11 +25,10 @@
       debug:
         var: hostvars['10.10.20.175']
 
-    - name: Write facts to disk using a template
+    - name: Write NXOS facts to disk using a template
       template:
         src: templates/facts_output.j2
-        dest: /tmp/switch-facts
-      run_once: yes
+        dest: /tmp/switch-facts/{{ inventory_hostname }}_facts.txt
 
     ###
     # Get running configuration
