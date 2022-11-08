@@ -37,7 +37,7 @@ Install pylibssh library for Ansible.
 pip3 install ansible-pylibssh
 ```
 
-#### cisco.ios & cisco.nxos
+#### cisco.ios & cisco.nxos Modules
 
 Some modules that Ansible uses do not come pre-installed.  These include two we are going to use, cisco.ios and cisco.nxos.  
 From the command line on the DevBox type the following commands to install them.  We will use ansible-galaxy to install 
@@ -222,7 +222,31 @@ To get around this, specify the group with the ```-l devnet_ios``` option being 
 ansible-playbook -l devnet_ios -i inventory.yml 01-run_show_version/main.yml -u cisco -k
 ```
 
- ### ios_config
+#### 02-run_show_arp
+
+This playbook will get the 'show arp' info from all devices in the inventory file.
+
+```
+
+
+``` 
+
+
+#### 03-run_show_mac_address_address-table
+
+```
+
+```
+
+#### 04-save_multiple_commands_to_text
+This playbook will save multiple commands to a text file using the ios_command modules.  Two versions have been created.  
+The file main.yml is targetted to IOS devices.  The file main_nxos.yml is targeted to NXOS devices.
+
+
+
+### ios_config
  
+ 
+
  
  ### ios_facts

@@ -1,0 +1,12 @@
+---
+- name: Get ARP information
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: show ip arp
+      raw: "show ip arp"
+
+      register: show_ip_arp
+
+    - debug: var=show_ip_arp.stdout_lines

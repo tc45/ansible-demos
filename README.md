@@ -61,7 +61,7 @@ connected to each local network segment and a DevBox which is used for programma
 Cisco DevNet Sandboxes can be accessed at the following URL:
 [https://developer.cisco.com/sandbox](https://developer.cisco.com/sandbox)
 
-- Locate the sandbox labeled: Cisco Modeling Labs Enterprise (Version 2.2.2 as of this update).
+- Locate the sandbox labeled: **Cisco Modeling Labs Enterprise** (Version 2.2.2 as of this update).
 - Reserve lab (Recommend minimum of 4 hours.  Can be extended for up to 2 days)
 - Wait for email instructions to login (takes 10-15 minutes)
 - Login via Cisco AnyConnect VPN using instruction provided in the email
@@ -79,14 +79,14 @@ If you choose to do this make sure you have met the following requirements:
 - Python v3.8+
 - Ansible-galaxy collections
     - ansible.network
-    - cisco.ios
-    - cisco.nxos
+    - cisco.ios:==3.3.2
+    - cisco.nxos:==4.0.0
 
 Once logged in you may continue with the lab.
 
 ### DevBox interaction
 
-The sandbox provides us with the DebBox which is used for programmatic interaction with the network devices.  As of this 
+The sandbox provides us with the DevBox which is used for programmatic interaction with the network devices.  As of this 
 writing, the DevBox is running CentOs with Python 3.6.8 and Ansible 2.9.  Login details via SSH for the DevBox are
  listed below.  
 
