@@ -25,7 +25,7 @@
       debug:
         var: hostvars['10.10.20.175']
 
-    - name: Write facts to disk using a inline template
+    - name: Write facts to disk using an inline template
       copy:
         content: |
           #jinja2: lstrip_blocks: True
@@ -44,8 +44,14 @@
             Model: {{ hostvars[host].ansible_net_model }}
             Serial: {{ hostvars[host].ansible_net_serialnum }}
             {% endfor %}
-        dest: /tmp/switch-facts
+        dest: /tmp/switch-facts.txt
       run_once: yes
+
+    - name: Create facts dir
+      file:
+        path: "/tmp/switch-facts"
+        state: directory
+        recurse: yes
 
     - name: Write facts to disk using a template file
       template:
