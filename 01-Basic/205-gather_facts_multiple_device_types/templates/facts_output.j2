@@ -1,4 +1,5 @@
 NXOS device info:
+------------------------------------------------
 {% for host in groups['devnet_nxos'] %}
 Hostname: {{ hostvars[host].ansible_net_hostname }}
 Version: {{ hostvars[host].ansible_net_version }}
@@ -8,6 +9,7 @@ Serial: {{ hostvars[host].ansible_net_serialnum }}
 {% endfor %}
 
 IOS device info:
+------------------------------------------------
 {% for host in groups['devnet_ios'] %}
 Hostname: {{ hostvars[host].ansible_net_hostname }}
 Version: {{ hostvars[host].ansible_net_version }}
