@@ -1,0 +1,26 @@
+---
+- name: Backup show version and other user level commands
+  hosts: devnet_ios
+  gather_facts: false
+
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.ios.ios
+    ansible_become: yes
+    ansible_gecome_method: enable
+
+  tasks:
+    - name: run multiple commands on remote devices
+      ios_command:
+        commands:
+          - show run
+          - show version
+          - show ip arp
+          - show ip protocols
+
+      register: show_output
+
+    - debug: var=show_output.stdout_lines
+
+    - name: save output to file
+      copy: content="{{ print_output.stdout[0] }}" dest="./output/{{ inventory_hostname }}.txt
