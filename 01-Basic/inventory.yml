@@ -1,7 +1,20 @@
+[all:vars]
+ansible_become=yes
+ansible_become_method=enable
+ansible_user=cisco
+ansible_password=cisco
+ansible_connection=ansible.netcommon.network_cli
+
 [devnet_ios]
 10.10.20.175
 10.10.20.176
 
+[devnet_ios:vars]
+ansible_network_os=cisco.ios.ios
+
 [devnet_nxos]
 10.10.20.177
 10.10.20.178
+
+[devnet_nxos:vars]
+ansible_network_os=cisco.nxos.nxos
