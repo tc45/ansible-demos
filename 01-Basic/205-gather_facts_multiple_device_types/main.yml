@@ -70,13 +70,13 @@
         state: directory
         recurse: yes
 
-    - name: Copy backup files into /tmp/backups/ (eos)
+    - name: Copy backup files into /tmp/backups/ (nxos)
       copy:
         src: "{{ backup_nxos_location.backup_path }}"
         dest: "/tmp/backups/{{ inventory_hostname }}/{{ inventory_hostname }}.txt"
       when: ansible_network_os == 'cisco.nxos.nxos'
 
-    - name: Copy backup files into /tmp/backups/ (vyos)
+    - name: Copy backup files into /tmp/backups/ (ios)
       copy:
         src: "{{ backup_ios_location.backup_path }}"
         dest: "/tmp/backups/{{ inventory_hostname }}/{{ inventory_hostname }}.txt"
