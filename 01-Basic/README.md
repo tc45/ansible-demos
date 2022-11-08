@@ -17,36 +17,6 @@ cisco.ios.ios_facts.
 NOTE: These steps are not intended to be used in a production network. They are only offered as a guide for 
 practicing in a lab environment.  Consult with an ansible professional for using ansible in production environments.
 
-## Prerequisites
-
-#### sshpass
-
-In this simple example we are going to have the DevBox prompt us for a password when accessing our inventory devices as 
-opposed to storing them in either the inventory file or password vault.  in order to do this we must install **sshpass**
- onto the DevBox.  Enter the following command and follow prompts to install **sshpass**:
- 
-```
-sudo yum install sshpass
-```
-
-### ansible-pylibssh
-
-Install pylibssh library for Ansible.
-
-```
-pip3 install ansible-pylibssh
-```
-
-#### cisco.ios & cisco.nxos Modules
-
-Some modules that Ansible uses do not come pre-installed.  These include two we are going to use, cisco.ios and cisco.nxos.  
-From the command line on the DevBox type the following commands to install them.  We will use ansible-galaxy to install 
-the collections using known good working versions of the modules.
-
-```
-ansible-galaxy collection install cisco.ios:==3.3.2
-ansible-galaxy collection install cisco.nxos:==4.0.0
-```
 
 ## Configuration and Inventory File
 
@@ -88,8 +58,8 @@ command line options see the documentation of run ```ansible --help```.
 
 ### Run basic show commands using the RAW module
 Ansible RAW module (ansible.builtin.raw) is a ansible-core module included in all Ansible installations.  Per the 
-documentation it *Executes a low-down and dirty SSH command' on a device.  The primary use case is for devices that don't 
-have Python installed which should include almost all network equipment.  
+documentation it *Executes a low-down and dirty SSH command* on a device.  The primary use case is for devices that don't 
+have Python installed which should include almost all network equipment (routers, switches, firewalls, load balancers, etc).  
 
 We will be using the [Ansible RAW Module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/raw_module.html) 
 in our first few examples from the CLI.   
@@ -240,13 +210,33 @@ This playbook will get the 'show arp' info from all devices in the inventory fil
 
 #### 04-save_multiple_commands_to_text
 This playbook will save multiple commands to a text file using the ios_command modules.  Two versions have been created.  
-The file main.yml is targetted to IOS devices.  The file main_nxos.yml is targeted to NXOS devices.
+The file main.yml is targeted to IOS devices.  The file main_nxos.yml is targeted to NXOS devices.
 
+#### 05-run_commands_that_require_prompt
+This playbook will run a command that requires user input before continuing.
 
 
 ### ios_config
  
- 
+#### 101-configure_loopback_setting
 
+#### 102-configure_helpers_on_multiple_interfaces
+
+#### 103-configure_new_acl
  
- ### ios_facts
+#### 104-compare_startup_to_running_config
+
+
+
+### ios_facts
+
+#### 201-gather_legacy_facts
+
+
+#### 202-gather_subset_legacy_facts
+
+#### 203-exclude_subset_from_facts
+
+
+#### 204-gather_l2_facts_and_minimal_legacy
+
