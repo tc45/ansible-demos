@@ -2,14 +2,16 @@
 - name: run show version on remote devices
   hosts: all
   gather_facts: no
-
-  vars:
-    ansible_connection: ansible.netcommon.network_cli
-    ansible_network_os: cisco.ios.ios
-    ansible_become: yes
-    ansible_gecome_method: enable
-
   tasks:
-    - name: run show version on remote devices
+    - name: run show version on Cisco NXOS devices
+      cisco.nxos.nxos_command:
+        commands: show version
+      when: ansible_network_os=='cisco.nxos.nxos'
+
+    - name: run show version on Cisco IOS devices
       cisco.ios.ios_command:
         commands: show version
+      when: ansible_network_os=='cisco.ios.ios'
+
+
+
