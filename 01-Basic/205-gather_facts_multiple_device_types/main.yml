@@ -26,25 +26,8 @@
         var: hostvars['10.10.20.175']
 
     - name: Write facts to disk using a template
-      copy:
-        content: |
-          #jinja2: lstrip_blocks: True
-          NXOS device info:
-            {% for host in groups['nxos'] %}
-            Hostname: {{ hostvars[host].ansible_net_hostname }}
-            Version: {{ hostvars[host].ansible_net_version }}
-            Model: {{ hostvars[host].ansible_net_model }}
-            Serial: {{ hostvars[host].ansible_net_serialnum }}
-            {% endfor %}
-
-          IOS device info:
-            {% for host in groups['ios'] %}
-            Hostname: {{ hostvars[host].ansible_net_hostname }}
-            Version: {{ hostvars[host].ansible_net_version }}
-            Model: {{ hostvars[host].ansible_net_model }}
-            Serial: {{ hostvars[host].ansible_net_serialnum }}
-            {% endfor %}
-
+      template:
+        src: templates/facts_output.j2
         dest: /tmp/switch-facts
       run_once: yes
 

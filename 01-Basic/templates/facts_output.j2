@@ -1,0 +1,15 @@
+NXOS device info:
+{% for host in groups['nxos'] %}
+Hostname: {{ hostvars[host].ansible_net_hostname }}
+Version: {{ hostvars[host].ansible_net_version }}
+Model: {{ hostvars[host].ansible_net_model }}
+Serial: {{ hostvars[host].ansible_net_serialnum }}
+{% endfor %}
+
+IOS device info:
+{% for host in groups['ios'] %}
+Hostname: {{ hostvars[host].ansible_net_hostname }}
+Version: {{ hostvars[host].ansible_net_version }}
+Model: {{ hostvars[host].ansible_net_model }}
+Serial: {{ hostvars[host].ansible_net_serialnum }}
+{% endfor %}
