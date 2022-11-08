@@ -22,8 +22,9 @@
     - name: Display Show Versions from NXOS devices
       debug:
         var: nxos_show_version.stdout_lines
+      when: ansible_network_os=='cisco.nxos.nxos'
 
     - name: Display Show Versions from IOS devices
       debug:
         var: ios_show_version.stdout_lines
-
+      when: ansible_network_os=='cisco.ios.ios'
