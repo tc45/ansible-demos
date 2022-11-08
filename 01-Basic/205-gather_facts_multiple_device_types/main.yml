@@ -61,7 +61,7 @@
     - name: backup switch (ios)
       cisco.ios.ios_config:
         backup: yes
-      register: backup_vyos_location
+      register: backup_ios_location
       when: ansible_network_os == 'cisco.ios.ios'
 
     - name: Create backup dir
