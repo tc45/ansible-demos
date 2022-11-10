@@ -23,11 +23,12 @@
         recurse: yes
       run_once: yes
 
+    # As we output the results of the show commands one at a time we will add a header to describe which command was entered.
     - name: save output to file
       connection: local
       copy:
-        content="\n ===show run=== \n {{ show_output.stdout[0] }}
-                 \n ===show version=== \n {{ show_output.stdout[1] }}
-                  \n ===show ip arp=== \n {{ show_output.stdout[2] }}
-                  \n ===show ip protocols=== \n {{ show_output.stdout[3] }}"
+        content="\n ===show run=== \n {{ show_output.stdout[0] \n\n}}
+                 \n ===show version=== \n {{ show_output.stdout[1] \n\n}}
+                  \n ===show ip arp=== \n {{ show_output.stdout[2] \n\n}}
+                  \n ===show ip protocols=== \n {{ show_output.stdout[3] \n\n}}"
         dest="./output_files/{{ inventory_hostname }}.txt"
