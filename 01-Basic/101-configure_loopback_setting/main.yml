@@ -17,5 +17,5 @@
         lines:
           - description In-band management interface
           - ip address {{ loopback_10_address }}
-        parents: interface Loopback10
+        parents: interface loopback10
       when: ansible_network_os=='cisco.nxos.nxos'
