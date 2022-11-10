@@ -6,7 +6,8 @@
 
   tasks:
     - name: show ip arp
-      raw: "show ip arp"
+      cisco.ios.ios_command:
+        commands: show ip arp
 
       register: show_ip_arp
 
