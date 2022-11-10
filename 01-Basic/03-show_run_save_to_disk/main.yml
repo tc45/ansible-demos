@@ -13,6 +13,12 @@
     - set_fact: time="{{lookup('pipe','date \"+%Y-%m-%d-%H-%M\"')}}"
       run_once: yes
 
+    - name: Create running config dir
+      file:
+        path: "running_configs"
+        state: directory
+        recurse: yes
+
     - name: save output to a file
       connection: local
       copy:
