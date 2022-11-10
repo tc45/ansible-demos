@@ -10,10 +10,10 @@
       cisco.ios.ios_config:
         parents: "ip access-list extended VTY_ACL"
         lines:
-          - permit tcp 192.168.0.0 0.0.255.255 any eq 22
-          - permit tcp 172.16.0.0 0.15.255.255 any eq 22
-          - permit tcp 10.0.0.0 0.255.255.255 any eq 22
-          - deny tcp any any log
+          - 10 permit tcp 192.168.0.0 0.0.255.255 any eq 22
+          - 20 permit tcp 172.16.0.0 0.15.255.255 any eq 22
+          - 30 permit tcp 10.0.0.0 0.255.255.255 any eq 22
+          - 40 deny tcp any any log
         before: "no ip access-list extended VTY_ACL"
         match: exact
         replace: line
