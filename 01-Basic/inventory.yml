@@ -1,20 +1,35 @@
-[all:vars]
-ansible_become=yes
-ansible_become_method=enable
-ansible_user=cisco
-ansible_password=cisco
-ansible_connection=ansible.netcommon.network_cli
 
-[devnet_ios]
-10.10.20.175
-10.10.20.176
+[devnet_ios]                                                    # Group name
+10.10.20.175                                                    # Host within the group
+10.10.20.176                                                    # Additional host in the group
 
-[devnet_ios:vars]
-ansible_network_os=cisco.ios.ios
+[devnet_ios:vars]                                               # Group variables specific to devnet_ios group
+ansible_network_os=cisco.ios.ios                                # Assign value to well known variable
+psn1=10.1.1.1                                                   # Create group specific variables
+psn2=10.1.1.2
+psn3=10.1.1.3
 
-[devnet_nxos]
-10.10.20.177
+[devnet_nxos]                                                   # Create second group
+10.10.20.177                                                    # Add hosts to second group
 10.10.20.178
 
-[devnet_nxos:vars]
-ansible_network_os=cisco.nxos.nxos
+[devnet_nxos:vars]                                              # Variables for the second group
+ansible_network_os=cisco.nxos.nxos                              # Well known variable set to device specifics
+psn1=10.2.1.1                                                   # Create group specific variables with unique values
+psn2=10.2.1.2
+psn3=10.2.1.3
+
+[devnet:children]                                                # Create grouping of the groups called DevNet
+devnet_ios                                                       # Add groups to parent group
+devnet_nxos                                                      # Add groups to parent group
+
+
+[all:vars]                                                      # Define variables applicable to ALL devices in inventory
+ansible_become=yes                                              # Well known variables
+ansible_become_method=enable                                    # Well known variables
+ansible_user=cisco                                              # Well known variables
+ansible_password=cisco                                          # Well known variables
+ansible_connection=ansible.netcommon.network_cli                # Well known variables
+psn_encrypted_key=abc123                                        # Custom variable
+
+
