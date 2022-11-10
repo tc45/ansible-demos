@@ -11,9 +11,10 @@
       register: RUNCFG
 
     - set_fact: time="{{lookup('pipe','date \"+%Y-%m-%d-%H-%M\"')}}"
+      run_once: yes
 
     - name: save output to a file
       connection: local
       copy:
         content="\n ===show run=== \n {{ RUNCFG.stdout }}"
-        dest="./{{ inventory_hostname }}_run_cfg_{{ time }}.txt"
+        dest="./running_configs/{{ inventory_hostname }}_run_cfg_{{ time }}.txt"
