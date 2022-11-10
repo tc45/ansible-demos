@@ -3,6 +3,11 @@
   gather_facts: no
 
   tasks:
+    - name: Ensure DHCP feature is enabled on NXOS
+      cisco.nxos.nxos_feature:
+        feature: dhcp
+        state: enabled
+
     - name: configure helper addresses on VLANs
       cisco.nxos.nxos_config:
         lines:
