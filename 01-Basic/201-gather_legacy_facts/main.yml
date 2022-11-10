@@ -9,4 +9,4 @@
         gather_subset: all
       register: ios_facts
 
-    - debug: var=ios_facts.stdout
+    - debug: var=ios_facts
