@@ -18,6 +18,7 @@
         path: "running_configs"
         state: directory
         recurse: yes
+      run_once: yes
 
     - name: save output to a file
       connection: local
