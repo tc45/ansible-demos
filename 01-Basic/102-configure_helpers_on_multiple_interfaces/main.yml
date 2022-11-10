@@ -8,4 +8,4 @@
         lines:
           - ip helper-address {{ item.helper }}
         parents: interface {{ item.interface }}
-      with_items: {{ helper_vlans }}
+      with_items: "{{ helper_vlans }}"
