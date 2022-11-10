@@ -2,6 +2,7 @@
 - name: Get ARP information
   hosts: all
   gather_facts: false
+  connection: local
 
   tasks:
     - name: show ip arp
