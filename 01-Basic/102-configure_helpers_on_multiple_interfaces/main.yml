@@ -8,7 +8,7 @@
         feature: dhcp
         state: enabled
 
-    - name: configure helper addresses on VLANs
+    - name: configure DHCP relay address(es) on VLANs
       cisco.nxos.nxos_config:
         lines:
           - ip dhcp relay address {{ item.helper }}
