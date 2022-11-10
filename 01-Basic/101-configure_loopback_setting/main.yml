@@ -1,4 +1,4 @@
-- name: "Gather loopback interface"
+- name: Gather loopback interface
   hosts: all
   gather_facts: no
 

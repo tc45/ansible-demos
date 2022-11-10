@@ -1,0 +1,11 @@
+- name: Add helper address to VLAN interfaces
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: configure helper addresses on VLANs
+      cisco.nxos.nxos_config:
+        lines:
+          - ip helper-address {{ helper_address }}
+        parents: interface {{ item.interface }}
+      with_items: {{ helper_vlans }}
