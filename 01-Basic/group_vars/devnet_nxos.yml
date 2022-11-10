@@ -1,5 +1,5 @@
 helper_vlans:
   - interface: Vlan101
+    helper: 1.1.1.1
   - interface: Vlan102
-
-helper_address: 1.1.1.1
+    helper: 1.1.1.2

@@ -6,6 +6,6 @@
     - name: configure helper addresses on VLANs
       cisco.nxos.nxos_config:
         lines:
-          - ip helper-address {{ helper_address }}
+          - ip helper-address {{ item.helper }}
         parents: interface {{ item.interface }}
       with_items: {{ helper_vlans }}
