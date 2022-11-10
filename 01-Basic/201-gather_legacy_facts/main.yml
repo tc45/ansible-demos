@@ -1,0 +1,12 @@
+---
+- name: Configure VTY ACL on IOS devices
+  hosts: devnet_ios
+  gather_facts: no
+
+  tasks:
+    - name: Gather all legacy facts
+      cisco.ios.ios_facts:
+        gather_subset: all
+      register: ios_facts
+
+    - debug: var=ios_facts.stdout
