@@ -24,4 +24,5 @@
       run_once: yes
 
     - name: save output to file
-      copy: content="{{ print_output.stdout[0] }}" dest="./output_files/{{ inventory_hostname }}.txt
+      connection: local
+      copy: content="{{ show_output.stdout[0] }}" dest="./output_files/{{ inventory_hostname }}.txt"
