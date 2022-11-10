@@ -5,7 +5,8 @@
 
   tasks:
     - name: Collect Show run from all routers
-      raw: "show run"
+      cisco.ios.ios_command:
+        commands: show run
 
       register: RUNCFG
 
