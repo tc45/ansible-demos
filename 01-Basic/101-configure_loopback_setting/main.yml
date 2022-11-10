@@ -3,9 +3,19 @@
   gather_facts: no
 
   tasks:
-    - name: configure Loopback interface settings
+    - name: configure Loopback interface settings for IOS devices
       cisco.ios.ios_config:
         lines:
           - description In-band management interface
           - ip address {{ loopback_10_address }}
         parents: interface Loopback10
+      when: ansible_network_os=='cisco.ios.ios'
+
+
+    - name: configure Loopback interface settings for NXOS devices
+      cisco.ios.ios_config:
+        lines:
+          - description In-band management interface
+          - ip address {{ loopback_10_address }}
+        parents: interface Loopback10
+      when: ansible_network_os=='cisco.nxos.nxos'
