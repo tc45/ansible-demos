@@ -117,25 +117,25 @@ ansible <<hostname>> -m raw -a "<<command>>" -u <<username>> -k
 
 1. Run a basic show command against a single device
     ```
-    ansible 10.10.20.175 -i inventory2.yml -m raw -a "show run" -u cisco -k
+    ansible 10.10.20.175 -i inventory_basic.yml -m raw -a "show run" -u cisco -k
     ``` 
 
 2. Change show command
     ```
-    ansible 10.10.20.175 -i inventory2.yml -m raw -a "show version" -u cisco -k
+    ansible 10.10.20.175 -i inventory_basic.yml -m raw -a "show version" -u cisco -k
     ``` 
 
 3. Run show command against inventory file
     - To run against the inventory file you must specify both the inventory file to be used as well as 
     the group you want to target.  The group **all** is a default group that includes all other groups.  
     ```
-    ansible all -i inventory2.yml -m raw -a "show version" -u cisco -k
+    ansible all -i inventory_basic.yml -m raw -a "show version" -u cisco -k
     ```
 
 4. Target group with show command in inventory file
     - Change the group **all** to group **devnet_ios**.
     ```
-    ansible devnet_ios -i inventory2.yml -m raw -a "show version" -u cisco -k
+    ansible devnet_ios -i inventory_basic.yml -m raw -a "show version" -u cisco -k
     ```
    
 5. Extend ad-hoc commands with **grep**
@@ -144,20 +144,20 @@ ansible <<hostname>> -m raw -a "<<command>>" -u <<username>> -k
    - Specify multiple search terms using ```\|``` to separate them.
    - NOTE: Added ```SUCCESS\|CHANGED\|``` to grep statement so we can see the line which shows the login status and hostname.
    ```
-    ansible all -i inventory2.yml -m raw -a "show version" -u cisco -k | grep 'SUCCESS\|CHANGED\|XE Software,\|NXOS image'
+    ansible all -i inventory_basic.yml -m raw -a "show version" -u cisco -k | grep 'SUCCESS\|CHANGED\|XE Software,\|NXOS image'
     ```
    
 6. Extend ad-hoc commands with **grep**
    - Search for usernames in running by looking for specific output from 'show version' to capture for both IOS-XE and 
    NX-OS devices.  
    ```
-    ansible all -i inventory2.yml -m raw -a "show run" -u cisco -k | grep 'SUCCESS\|CHANGED\|username'
+    ansible all -i inventory_basic.yml -m raw -a "show run" -u cisco -k | grep 'SUCCESS\|CHANGED\|username'
     ```
 
 7. Send output to file.
    - Use LINUX command line to send output to a file.  GREP after file has been output
    ```
-    ansible all -i inventory2.yml -m raw -a "show run" -u cisco -k > show_run.txt
+    ansible all -i inventory_basic.yml -m raw -a "show run" -u cisco -k > show_run.txt
     ...
     <OUTPUT OMITTED>
     ...
@@ -167,7 +167,7 @@ ansible <<hostname>> -m raw -a "<<command>>" -u <<username>> -k
 8. Other non-privileged commands
    - Ping the same IP from multiple devices
    ```
-    ansible all -i inventory2.yml -m raw -a "ping 172.16.252.21" -u cisco -k
+    ansible all -i inventory_basic.yml -m raw -a "ping 172.16.252.21" -u cisco -k
     ```
 ## Simple Playbooks - Beginning with cisco.ios.commands
 
