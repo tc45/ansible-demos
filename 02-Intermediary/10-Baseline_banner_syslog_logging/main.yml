@@ -60,8 +60,17 @@
     - name: Create AAA server groups and assign keys
       cisco.ios.ios_config:
         lines:
-          - tacacs server {{ item.name }}
           - address ipv4 {{ item.address }}
           - key {{ psn_key }}
-        with_items: "{{ psns }}"
+        parents: tacacs server {{ item.name }}
+      with_items: "{{ psns }}"
       tags: aaa
+
+
+
+    - name: configure DHCP relay address(es) on VLANs
+      cisco.nxos.nxos_config:
+        lines:
+          - ip dhcp relay address {{ item.helper }}
+        parents: interface {{ item.interface }}
+      with_items: "{{ helper_vlans }}"
