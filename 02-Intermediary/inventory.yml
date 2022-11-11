@@ -30,6 +30,7 @@ all:
     ansible_password: cisco
     ansible_become: yes
     ansible_become_method: enable
+    ansible_become_password: cisco
     psns:
       - name: US_EAST_PSN1
         address: 1.1.1.1
