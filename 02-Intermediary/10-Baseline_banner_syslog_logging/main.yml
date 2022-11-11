@@ -55,17 +55,7 @@
       cisco.ios.ios_config:
         lines:
           - aaa new-model
-
-    - name: Configure aaa new-model
-      cisco.ios.ios_config:
-        lines:
-          - aaa new-model
-
-    - name: Test variable 2
-      cisco.ios.ios_config:
-        lines:
-          - ip access-list standard {{ psn_key }}
-      tags: test
+      tags: aaa
 
     - name: Create AAA server groups and assign keys
       cisco.ios.ios_config:
@@ -74,3 +64,4 @@
           - address ipv4 {{ item.address }}
           - key {{ psn_key }}
         with_items: "{{ psns }}"
+      tags: aaa
