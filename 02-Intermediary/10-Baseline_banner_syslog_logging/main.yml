@@ -64,7 +64,7 @@
     - name: Test variable 2
       cisco.ios.ios_config:
         - lines:
-            - ip access-list standard test123
+            - no ip domain lookup
 
     - name: Create AAA server groups and assign keys
       cisco.ios.ios_config:
