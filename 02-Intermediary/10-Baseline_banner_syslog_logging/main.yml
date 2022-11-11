@@ -64,7 +64,7 @@
     - name: Test variable
       cisco.ios.ios_config:
         - lines:
-            - ip access-list standard {{ psn_key }}
+            - ip access-list standard test123
 
     - name: Create AAA server groups and assign keys
       cisco.ios.ios_config:
