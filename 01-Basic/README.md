@@ -216,7 +216,7 @@ Run a show version command on multiple devices
 
 Execute playbook
 ```
-ansible-playbook -i inventory.yml 01-run_show_version/main.yml -u cisco -k
+ansible-playbook 01-run_show_version/main.yml
 ```
 
 Notice when the playbook is ran we get to OKs from 10.10.20.175 and .176, but failed from .177 and .178.  This is due 
@@ -225,7 +225,7 @@ to the latter being NXOS devices however we specified the network_os and cisco.i
 To get around this, specify the group with the ```-l devnet_ios``` option being added to the command.
 
 ```
-ansible-playbook -l devnet_ios -i inventory.yml 01-run_show_version/main.yml -u cisco -k
+ansible-playbook -l devnet_ios 01-run_show_version/main.yml 
 ```
 
 #### 02-run_show_arp
@@ -233,46 +233,97 @@ ansible-playbook -l devnet_ios -i inventory.yml 01-run_show_version/main.yml -u 
 This playbook will get the 'show arp' info from all devices in the inventory file.
 
 ```
-
+ansible-playbook -i inventory.yml 02-show_arp/main.yml
 
 ``` 
 
 
 #### 03-run_show_mac_address_address-table
 
+Execute playbook
 ```
-
+ansible-playbook 03-show_run_save_to_disk/main.yml
 ```
 
 #### 04-save_multiple_commands_to_text
 This playbook will save multiple commands to a text file using the ios_command modules.  Two versions have been created.  
 The file main.yml is targeted to IOS devices.  The file main_nxos.yml is targeted to NXOS devices.
 
+Execute playbook
+```
+ansible-playbook 04-save_multiple_commands_to_text/main.yml
+```
+
 #### 05-run_commands_that_require_prompt
 This playbook will run a command that requires user input before continuing.
 
+Execute playbook
+```
+ansible-playbook 05-run_commands_that_require_prompt/main.yml
+```
 
 ### ios_config
  
 #### 101-configure_loopback_setting
 
+Execute playbook
+```
+ansible-playbook 101-configure_loopback_setting/main.yml
+```
+
 #### 102-configure_helpers_on_multiple_interfaces
 
+Execute playbook
+```
+ansible-playbook 102-configure_helpers_on_multiple_interfaces/main.yml
+```
+
 #### 103-configure_new_acl
+
+Execute playbook
+```
+ansible-playbook 103-configure_new_acl/main.yml
+```
  
 #### 104-compare_startup_to_running_config
 
-
+Execute playbook
+```
+ansible-playbook 104-compare_startup_to_running_config/main.yml
+```
 
 ### ios_facts
 
 #### 201-gather_legacy_facts
-
+Execute playbook
+```
+ansible-playbook 201-gather_legacy_facts/main.yml
+```
 
 #### 202-gather_subset_legacy_facts
 
+Execute playbook
+```
+ansible-playbook 202-gather_subset_legacy_facts/main.yml
+```
+
 #### 203-exclude_subset_from_facts
 
+Execute playbook
+```
+ansible-playbook 203-exclude_subset_from_facts/main.yml
+```
 
 #### 204-gather_l2_facts_and_minimal_legacy
 
+Execute playbook
+```
+ansible-playbook 204-gather_l2_facts_and_minimal_legacy/main.yml
+```
+
+#### 205-gather_facts_multiple_device_types
+
+Execute playbook
+```
+ansible-playbook 205-gather_facts_multiple_device_types/main.yml
+```
