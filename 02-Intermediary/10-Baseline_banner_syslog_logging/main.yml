@@ -56,6 +56,11 @@
         lines:
           - aaa new-model
 
+    - name: Test variable
+      cisco.ios.ios_config:
+        - lines:
+            - ! This is the psn key: {{ psn_key }}
+
     - name: Create AAA server groups and assign keys
       cisco.ios.ios_config:
         lines:
