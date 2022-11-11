@@ -4,9 +4,9 @@ all:
       children:
         devnet_nxos:
           hosts:
-            dist-sw01:
+            DIST-SW01:
               ansible_host: 10.10.20.177
-            dist-sw02:
+            DIST-SW02:
               ansible_host: 10.10.20.178
           vars:
               ansible_connection: ansible.netcommon.network_cli
@@ -15,10 +15,10 @@ all:
               ansible_password: cisco
         devnet_ios:
           hosts:
-            dist-rtr01:
+            DIST-RTR01:
               ansible_host: 10.10.20.175
               compliance_hipaa: yes
-            dist-rtr02:
+            DIST-RTR02:
               ansible_host: 10.10.20.176
 
           vars:
