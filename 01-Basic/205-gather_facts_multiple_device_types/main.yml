@@ -23,7 +23,8 @@
 
     - name: Facts from a specific host
       debug:
-        var: hostvars['10.10.20.175']
+        var: hostvars['DIST-RTR01']
+      run_once: yes
 
     - name: Write facts to disk using an inline template
       copy:
