@@ -40,17 +40,53 @@ cat inventory.yml
 
 Output of **inventory.yml**
 ```
-[devnet_ios]
-10.10.20.175
-10.10.20.176
+# Individual devices can be specified with variables added directly inline
+10.10.20.175 ansible_network_os=cisco.ios.ios
 
+# Create group called devnet_ios and add all IOS-XE devices to it
+[devnet_ios]
+dist-rtr01 ansible_host=10.10.20.175
+dist-rtr02 ansible_host=10.10.20.176
+
+# Assign variables to the group called devnet_ios.  ansible_network is well known.  psn1/2/3 are custom variables
+[devnet_ios:vars]
+ansible_network_os=cisco.ios.ios
+
+# Create second group called devnet_nxos and assign NXOS devices to it
 [devnet_nxos]
-10.10.20.177
-10.10.20.178
+dist-sw01 ansible_host=10.10.20.177
+dist-sw02 ansible_host=10.10.20.178
+
+# Assign unique variables to devnet_nxos group
+[devnet_nxos:vars]
+ansible_network_os=cisco.nxos.nxos
+
+# Create parent group called devnet that includes the child groups devnet_ios and devnet_nxos
+[devnet:children]
+devnet_ios
+devnet_nxos
+
+# Define variables applicable to all devices in inventory file.  All that start with ansible_ are well known.
+#  psn_encrypted is a custom variable custom.
+[all:vars]
+ansible_become=yes
+ansible_become_method=enable
+ansible_user=cisco
+ansible_password=cisco
+ansible_connection=ansible.netcommon.network_cli
 ```
 
 Notice that each of the devices are located under a grouping for the device type.  .175 and .176 which are both IOS-XE devices 
-are specfied as **devnet_ios** whereas .177 and .178 are specified as part of the **devnet_nxos** group.
+are specfied as **devnet_ios** whereas .177 and .178 are specified as part of the **devnet_nxos** group.  Variables are either 
+defined in line with the device or can be associated with groups or the built in group all.  Multiple groups can be grouped 
+together using the [<group_name>:children] notation.  
+
+## host_vars and group_vars
+
+Not all variables used in these labs will be stored in the inventory file.  Variables can be stored in either group specific 
+files in the group_vars directory bearing a name that matches the associated group (e.g. group devnet should have file 
+group_vars/devnet.yml).  Ansible will automatically search the host_vars and group_vars directory wherever the playbook was 
+run from.  host_vars should be specified as 
 
 ## Ad-hoc commands
 Ansible can be used directly from the CLI that it has been installed using the `ansible` command.  For full details on 
