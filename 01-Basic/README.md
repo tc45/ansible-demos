@@ -15,7 +15,7 @@ complexity. We will look at three Cisco modules in this section: cisco.ios.ios_c
 cisco.ios.ios_facts.
 
 NOTE: These steps are not intended to be used in a production network. They are only offered as a guide for 
-practicing in a lab environment.  Consult with an ansible professional for using ansible in production environments.
+practicing in a lab environment.  Consult with an Ansible professional before using Ansible in production environments.
 
 
 ## Configuration and Inventory File
@@ -40,15 +40,16 @@ cat inventory.yml
 
 Output of **inventory.yml**
 ```
-# Individual devices can be specified with variables added directly inline
-10.10.20.175 ansible_network_os=cisco.ios.ios
+# Individual devices can be specified with variables added directly inline.  Device doesn't exist in lab.  Timeout of 1
+# to quickly timeout SSH when it tries to connect.
+DIST-SW00 ansible_host=10.10.20.174 ansible_network_os=cisco.ios.ios timeout=1
 
 # Create group called devnet_ios and add all IOS-XE devices to it
 [devnet_ios]
 dist-rtr01 ansible_host=10.10.20.175
 dist-rtr02 ansible_host=10.10.20.176
 
-# Assign variables to the group called devnet_ios.  ansible_network is well known.  psn1/2/3 are custom variables
+# Assign variables to the group called devnet_ios.  ansible_network is well known. 
 [devnet_ios:vars]
 ansible_network_os=cisco.ios.ios
 
@@ -67,7 +68,6 @@ devnet_ios
 devnet_nxos
 
 # Define variables applicable to all devices in inventory file.  All that start with ansible_ are well known.
-#  psn_encrypted is a custom variable custom.
 [all:vars]
 ansible_become=yes
 ansible_become_method=enable
