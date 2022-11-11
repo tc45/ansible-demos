@@ -1,5 +1,5 @@
 - name: "Demonstrate connecting to switches of multiple types"
-  hosts: all
+  hosts: devnet
   gather_facts: no
 
   tasks:

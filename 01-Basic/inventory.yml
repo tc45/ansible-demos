@@ -1,5 +1,5 @@
 # Individual devices can be specified with variables added directly inline
-10.10.20.174 ansible_network_os=cisco.ios.ios
+DIST-SW00 ansible_host=10.10.20.174 ansible_network_os=cisco.ios.ios timeout=1
 
 # Create group called devnet_ios and add all IOS-XE devices to it
 [devnet_ios]

@@ -1,5 +1,5 @@
 - name: "Gather L2 interface data and minimal facts"
-  hosts: all
+  hosts: devnet
   gather_facts: no
 
   tasks:

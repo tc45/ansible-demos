@@ -1,6 +1,0 @@
----
-- name: Configure VTY ACL on IOS devices
-  hosts: devnet_ios
-  gather_facts: no
-
-  tasks:
