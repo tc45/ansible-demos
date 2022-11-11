@@ -3,8 +3,8 @@
 
 # Create group called devnet_ios and add all IOS-XE devices to it
 [devnet_ios]
-dist-rtr01 ansible_host=10.10.20.175
-dist-rtr02 ansible_host=10.10.20.176
+DIST-RTR01 ansible_host=10.10.20.175
+DIST-RTR02 ansible_host=10.10.20.176
 
 # Assign variables to the group called devnet_ios.  ansible_network is well known.  psn1/2/3 are custom variables
 [devnet_ios:vars]
