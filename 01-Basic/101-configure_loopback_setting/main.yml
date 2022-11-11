@@ -1,5 +1,5 @@
 - name: Gather loopback interface
-  hosts: all
+  hosts: devnet
   gather_facts: no
 
   tasks:
