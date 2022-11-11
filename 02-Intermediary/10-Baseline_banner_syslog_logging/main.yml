@@ -65,12 +65,3 @@
         parents: tacacs server {{ item.name }}
       with_items: "{{ psns }}"
       tags: aaa
-
-
-
-    - name: configure DHCP relay address(es) on VLANs
-      cisco.nxos.nxos_config:
-        lines:
-          - ip dhcp relay address {{ item.helper }}
-        parents: interface {{ item.interface }}
-      with_items: "{{ helper_vlans }}"
