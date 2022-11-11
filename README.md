@@ -138,7 +138,7 @@ ansible-galaxy collection install cisco.nxos:==4.0.0
 
 
 ```
-curl https://raw.githubusercontent.com/InsightSSG/netdevops-ansible-demos/main/pre-req.sh | bash
+curl https://raw.githubusercontent.com/InsightSSG/netdevops-ansible-demos/main/PRE-REQS.sh | bash
 ```
 
 ### Manual Pre-Req installation
