@@ -59,7 +59,7 @@
     - name: Create AAA server groups and assign keys
       cisco.ios.ios_config:
         lines:
-          - tacacs server {{ psns.name }}
-          - address ipv4 {{ psns.address }}
+          - tacacs server {{ item.name }}
+          - address ipv4 {{ item.address }}
           - key {{ psn_key }}
         with_items: "{{ psns }}"
