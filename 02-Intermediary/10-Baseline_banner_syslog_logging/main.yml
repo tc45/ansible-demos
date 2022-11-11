@@ -64,7 +64,7 @@
     - name: Test variable 2
       cisco.ios.ios_config:
         lines:
-          - no ip domain lookup
+          - ! no ip domain lookup {{ psn_keys }}
 
     - name: Create AAA server groups and assign keys
       cisco.ios.ios_config:
