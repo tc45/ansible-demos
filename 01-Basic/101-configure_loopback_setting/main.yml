@@ -10,7 +10,7 @@
           - ip address {{ loopback_10_address }}
         parents: interface Loopback10
       when: ansible_network_os=='cisco.ios.ios'
-      tag: ios
+      tags: ios
 
 
     - name: configure Loopback interface settings for NXOS devices
@@ -20,4 +20,4 @@
           - ip address {{ loopback_10_address }}
         parents: interface loopback10
       when: ansible_network_os=='cisco.nxos.nxos'
-      tag: nxos
+      tags: nxos
