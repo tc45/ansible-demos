@@ -18,7 +18,7 @@ The repository is broken up into Basic, Intermediary, and Advanced subdirectorie
 having their own unique instructions and playbooks. All subsections will use the same method of 
 connectivity listed below.
 
-- [**01-Basic**](01-Basic/README.md)
+- [**01-Basic**](https://github.com/InsightSSG/netdevops-ansible-demos/tree/main/01-Basic)
     - Ad-hoc commands
     - RAW Ansible module usage
     - Simple inventory
@@ -26,13 +26,13 @@ connectivity listed below.
         - Registers and Debug
         - Variables
         - ios_command, ios_config, and ios_facts modules
-- [**02-Intermediary**](02-Intermediary/README.md)
+- [**02-Intermediary**](https://github.com/InsightSSG/netdevops-ansible-demos/tree/main/02-Intermediary)
     - Structured static inventory files
     - Mature playbooks
         - Loops
         - Reuse variables
         - Functionally specific modules
-- [**03-Advanced (FUTURE)**](03-Advanced/README.md)
+- [**03-Advanced (FUTURE)**](https://github.com/InsightSSG/netdevops-ansible-demos/tree/main/03-Advanced)
     - Dynamic inventory
     - Complex playbooks
         - Chaining multiple plays
