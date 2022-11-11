@@ -65,6 +65,7 @@
       cisco.ios.ios_config:
         lines:
           - ! no ip domain lookup {{ psn_key }}
+      tags: test
 
     - name: Create AAA server groups and assign keys
       cisco.ios.ios_config:
