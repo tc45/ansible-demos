@@ -2,9 +2,7 @@
 - name: Configure VTY ACL on IOS devices
   hosts: devnet_ios
   gather_facts: no
-  vars:
-    ansible_become: yes
-    ansible_become_method: enable
+
   tasks:
     - name: Configure VTY_ACL
       cisco.ios.ios_config:
@@ -13,7 +11,7 @@
           - 10 permit tcp 192.168.0.0 0.0.255.255 any eq 22
           - 20 permit tcp 172.16.0.0 0.15.255.255 any eq 22
           - 30 permit tcp 10.0.0.0 0.255.255.255 any eq 22
-          - 40 deny tcp any any log
+          - 40 deny   ip any any log
         before: "no ip access-list extended VTY_ACL"
         match: exact
         replace: line

@@ -3,12 +3,6 @@
   hosts: devnet_ios
   gather_facts: false
 
-  vars:
-    ansible_connection: ansible.netcommon.network_cli
-    ansible_network_os: cisco.ios.ios
-    ansible_become: yes
-    ansible_gecome_method: enable
-
   tasks:
     - name: run multiple commands on remote devices
       ios_command:
@@ -22,5 +16,19 @@
 
     - debug: var=show_output.stdout_lines
 
+    - name: Create running config dir
+      file:
+        path: "output_files"
+        state: directory
+        recurse: yes
+      run_once: yes
+
+    # As we output the results of the show commands one at a time we will add a header to describe which command was entered.
     - name: save output to file
-      copy: content="{{ print_output.stdout[0] }}" dest="./output/{{ inventory_hostname }}.txt
+      connection: local
+      copy:
+        content="\n ============  show run  ============ \n {{ show_output.stdout[0] \n\n}}
+                 \n ============  show version  ============ \n {{ show_output.stdout[1] \n\n}}
+                  \n ============  show ip arp  ============ \n {{ show_output.stdout[2] \n\n}}
+                  \n ============  show ip protocols  ============ \n {{ show_output.stdout[3] \n\n}}"
+        dest="./output_files/{{ inventory_hostname }}.txt"

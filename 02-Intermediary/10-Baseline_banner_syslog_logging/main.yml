@@ -2,11 +2,7 @@
 - name: Set global configurations
   hosts: devnet_ios
   gather_facts: false
-  vars:
-    ansible_connection: ansible.netcommon.network_cli
-    ansible_network_os: cisco.ios.ios
-    ansible_become: yes
-    ansible_become_method: enable
+
   tasks:
     - name: Remove unneeded banners
       ios_banner:
@@ -16,6 +12,7 @@
         - motd
         - exec
         - incoming
+
     - name: Update login banner
       ios_banner:
         banner: login
@@ -47,3 +44,24 @@
       ios_config:
         lines:
           - service password-encryption
+
+    - name: Update hostname to Ansible variable
+      cisco.ios.ios_hostname:
+        config:
+          hostname: "{{ inventory_hostname }}"
+        state: merged
+
+    - name: Enable aaa new-model for tacacs configuration
+      cisco.ios.ios_config:
+        lines:
+          - aaa new-model
+      tags: aaa
+
+    - name: Create AAA server groups and assign keys
+      cisco.ios.ios_config:
+        lines:
+          - address ipv4 {{ item.address }}
+          - key {{ psn_key }}
+        parents: tacacs server {{ item.name }}
+      with_items: "{{ psns }}"
+      tags: aaa

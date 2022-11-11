@@ -11,3 +11,8 @@ compliance_hipaa_ntp_servers:
 
 compliance_hipaa_dns_servers:
 - 8.8.8.8
+
+log_host: 10.1.150.1
+
+
+

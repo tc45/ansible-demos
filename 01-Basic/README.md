@@ -17,36 +17,6 @@ cisco.ios.ios_facts.
 NOTE: These steps are not intended to be used in a production network. They are only offered as a guide for 
 practicing in a lab environment.  Consult with an ansible professional for using ansible in production environments.
 
-## Prerequisites
-
-#### sshpass
-
-In this simple example we are going to have the DevBox prompt us for a password when accessing our inventory devices as 
-opposed to storing them in either the inventory file or password vault.  in order to do this we must install **sshpass**
- onto the DevBox.  Enter the following command and follow prompts to install **sshpass**:
- 
-```
-sudo yum install sshpass
-```
-
-### ansible-pylibssh
-
-Install pylibssh library for Ansible.
-
-```
-pip3 install ansible-pylibssh
-```
-
-#### cisco.ios & cisco.nxos Modules
-
-Some modules that Ansible uses do not come pre-installed.  These include two we are going to use, cisco.ios and cisco.nxos.  
-From the command line on the DevBox type the following commands to install them.  We will use ansible-galaxy to install 
-the collections using known good working versions of the modules.
-
-```
-ansible-galaxy collection install cisco.ios:==3.3.2
-ansible-galaxy collection install cisco.nxos:==4.0.0
-```
 
 ## Configuration and Inventory File
 
@@ -70,17 +40,53 @@ cat inventory.yml
 
 Output of **inventory.yml**
 ```
-[devnet_ios]
-10.10.20.175
-10.10.20.176
+# Individual devices can be specified with variables added directly inline
+10.10.20.175 ansible_network_os=cisco.ios.ios
 
+# Create group called devnet_ios and add all IOS-XE devices to it
+[devnet_ios]
+dist-rtr01 ansible_host=10.10.20.175
+dist-rtr02 ansible_host=10.10.20.176
+
+# Assign variables to the group called devnet_ios.  ansible_network is well known.  psn1/2/3 are custom variables
+[devnet_ios:vars]
+ansible_network_os=cisco.ios.ios
+
+# Create second group called devnet_nxos and assign NXOS devices to it
 [devnet_nxos]
-10.10.20.177
-10.10.20.178
+dist-sw01 ansible_host=10.10.20.177
+dist-sw02 ansible_host=10.10.20.178
+
+# Assign unique variables to devnet_nxos group
+[devnet_nxos:vars]
+ansible_network_os=cisco.nxos.nxos
+
+# Create parent group called devnet that includes the child groups devnet_ios and devnet_nxos
+[devnet:children]
+devnet_ios
+devnet_nxos
+
+# Define variables applicable to all devices in inventory file.  All that start with ansible_ are well known.
+#  psn_encrypted is a custom variable custom.
+[all:vars]
+ansible_become=yes
+ansible_become_method=enable
+ansible_user=cisco
+ansible_password=cisco
+ansible_connection=ansible.netcommon.network_cli
 ```
 
 Notice that each of the devices are located under a grouping for the device type.  .175 and .176 which are both IOS-XE devices 
-are specfied as **devnet_ios** whereas .177 and .178 are specified as part of the **devnet_nxos** group.
+are specfied as **devnet_ios** whereas .177 and .178 are specified as part of the **devnet_nxos** group.  Variables are either 
+defined in line with the device or can be associated with groups or the built in group all.  Multiple groups can be grouped 
+together using the [<group_name>:children] notation.  
+
+## host_vars and group_vars
+
+Not all variables used in these labs will be stored in the inventory file.  Variables can be stored in either group specific 
+files in the group_vars directory bearing a name that matches the associated group (e.g. group devnet should have file 
+group_vars/devnet.yml).  Ansible will automatically search the host_vars and group_vars directory wherever the playbook was 
+run from.  host_vars should be specified as 
 
 ## Ad-hoc commands
 Ansible can be used directly from the CLI that it has been installed using the `ansible` command.  For full details on 
@@ -88,8 +94,8 @@ command line options see the documentation of run ```ansible --help```.
 
 ### Run basic show commands using the RAW module
 Ansible RAW module (ansible.builtin.raw) is a ansible-core module included in all Ansible installations.  Per the 
-documentation it *Executes a low-down and dirty SSH command' on a device.  The primary use case is for devices that don't 
-have Python installed which should include almost all network equipment.  
+documentation it *Executes a low-down and dirty SSH command* on a device.  The primary use case is for devices that don't 
+have Python installed which should include almost all network equipment (routers, switches, firewalls, load balancers, etc).  
 
 We will be using the [Ansible RAW Module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/raw_module.html) 
 in our first few examples from the CLI.   
@@ -240,13 +246,33 @@ This playbook will get the 'show arp' info from all devices in the inventory fil
 
 #### 04-save_multiple_commands_to_text
 This playbook will save multiple commands to a text file using the ios_command modules.  Two versions have been created.  
-The file main.yml is targetted to IOS devices.  The file main_nxos.yml is targeted to NXOS devices.
+The file main.yml is targeted to IOS devices.  The file main_nxos.yml is targeted to NXOS devices.
 
+#### 05-run_commands_that_require_prompt
+This playbook will run a command that requires user input before continuing.
 
 
 ### ios_config
  
- 
+#### 101-configure_loopback_setting
 
+#### 102-configure_helpers_on_multiple_interfaces
+
+#### 103-configure_new_acl
  
- ### ios_facts
+#### 104-compare_startup_to_running_config
+
+
+
+### ios_facts
+
+#### 201-gather_legacy_facts
+
+
+#### 202-gather_subset_legacy_facts
+
+#### 203-exclude_subset_from_facts
+
+
+#### 204-gather_l2_facts_and_minimal_legacy
+

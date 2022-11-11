@@ -1,0 +1,27 @@
+---
+- name: Get ARP information
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Collect Show run from all routers
+      cisco.ios.ios_command:
+        commands: show run
+
+      register: RUNCFG
+
+    - set_fact: time="{{lookup('pipe','date \"+%Y-%m-%d-%H-%M\"')}}"
+      run_once: yes
+
+    - name: Create running config dir
+      file:
+        path: "running_configs"
+        state: directory
+        recurse: yes
+      run_once: yes
+
+    - name: save output to a file
+      connection: local
+      copy:
+        content="\n ===show run=== \n {{ RUNCFG.stdout }}"
+        dest="./running_configs/{{ inventory_hostname }}_run_cfg_{{ time }}.txt"

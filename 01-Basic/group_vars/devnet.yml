@@ -1,0 +1,6 @@
+ntp_servers:
+- 0.north-america.pool.ntp.org
+- 1.north-america.pool.ntp.org
+
+dns_servers:
+- 1.1.1.1

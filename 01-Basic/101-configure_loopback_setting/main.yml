@@ -1,0 +1,23 @@
+- name: Gather loopback interface
+  hosts: devnet
+  gather_facts: no
+
+  tasks:
+    - name: configure Loopback interface settings for IOS devices
+      cisco.ios.ios_config:
+        lines:
+          - description In-band management interface
+          - ip address {{ loopback_10_address }}
+        parents: interface Loopback10
+      when: ansible_network_os=='cisco.ios.ios'
+      tags: ios
+
+
+    - name: configure Loopback interface settings for NXOS devices
+      cisco.nxos.nxos_config:
+        lines:
+          - description In-band management interface
+          - ip address {{ loopback_10_address }}
+        parents: interface loopback10
+      when: ansible_network_os=='cisco.nxos.nxos'
+      tags: nxos

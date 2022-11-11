@@ -113,35 +113,38 @@ the ```ansible --version``` command.  This will list both the ansible and python
 configuration or executable files being used.  Hopefully this gets fixed soon but if python version < 3.x you will need 
 to upgrade in order for this to work properly.  
 
-The easiest way to upgrade is to install Ansible using pip3 in the virutal environemnt.
+
+### All of the pre-req steps can be completed using the following command
+This will download a BASH script with commands to do the following:
+
+- Install ansible using Python3
+- Clone netdevops-ansible-demos repository
+- Install sshpass
+- Install ansible-pylibssh
 
 ```
+#!/bin/sh
+# Upgrade Ansible to use Python3
 pip3 install ansible
-``` 
-Once ansible has been installed again, logout and back into the session.  Run the command ```ansible --version``` again 
-and you should see the verison updated to at least 3.6.8.  
-
-```
-(py3venv) [developer@devbox ~]$ ansible --version
-ansible 2.10.7
-  config file = None
-  configured module search path = ['/home/developer/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /home/developer/py3venv/lib/python3.6/site-packages/ansible
-  executable location = /home/developer/py3venv/bin/ansible
-  python version = 3.6.8 (default, Sep 14 2019, 14:33:46) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
-(py3venv) [developer@devbox ~]$ 
-```
-
-## Clone Repository
-
-Clone this repository from the command line in the home directory of the DevBox using ```git```.
-
-```
+# Clone netdevops-ansible-demos directory
 git clone https://github.com/InsightSSG/netdevops-ansible-demos.git
+# Install Ansible subcomponents
+sudo yum -y install sshpass
+pip3 install ansible-pylibssh
+# Install Ansible-galaxy collections
+ansible-galaxy collection install cisco.ios:==3.3.2
+ansible-galaxy collection install cisco.nxos:==4.0.0
 ```
 
-This command will reach out to github and copy the main branch of this repository to a local directory called 
-*netdevops-ansible-demos*.  Once downloaded, ```cd netdevops-ansible-demos``` to continue.
+
+```
+curl https://raw.githubusercontent.com/InsightSSG/netdevops-ansible-demos/main/pre-req.sh | bash
+```
+
+### Manual Pre-Req installation
+If you would prefer to install the applications manually, follow the [prerequisites](./PRE-REQS.md) instructions.
+
+
 
 ## Sub-section catalog
 

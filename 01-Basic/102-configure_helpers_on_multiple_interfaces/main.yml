@@ -1,0 +1,16 @@
+- name: Add helper address to VLAN interfaces
+  hosts: devnet_nxos
+  gather_facts: no
+
+  tasks:
+    - name: Ensure DHCP feature is enabled on NXOS
+      cisco.nxos.nxos_feature:
+        feature: dhcp
+        state: enabled
+
+    - name: configure DHCP relay address(es) on VLANs
+      cisco.nxos.nxos_config:
+        lines:
+          - ip dhcp relay address {{ item.helper }}
+        parents: interface {{ item.interface }}
+      with_items: "{{ helper_vlans }}"
