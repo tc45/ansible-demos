@@ -1,5 +1,5 @@
 ---
-- name: Configure VTY ACL on IOS devices
+- name: Gather legacy facts and display them
   hosts: devnet_ios
   gather_facts: no
 
