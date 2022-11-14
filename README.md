@@ -151,7 +151,7 @@ If you would prefer to install the applications manually, follow the [prerequisi
 Labs are broken up into the following sub-sections.  Go to the README.md files in each of the directories to read further 
 about how to use the labs.
   
-- [01-Basic](01-Basic/README.md)
-- [02-Intermediary](02-Intermediary/README.md)
-- [03-Advanced](03-Advanced/README.md)
+- [01-Basic](https://github.com/InsightSSG/netdevops-ansible-demos/tree/main/01-Basic)
+- [02-Intermediary](https://github.com/InsightSSG/netdevops-ansible-demos/tree/main/02-Intermediary)
+- [03-Advanced](https://github.com/InsightSSG/netdevops-ansible-demos/tree/main/03-Advanced)
 
