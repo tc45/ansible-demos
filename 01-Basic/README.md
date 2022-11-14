@@ -11,11 +11,14 @@ This lab has two major sections:
  
 **Simple playbooks** - This section will expand on the previous section by creating reusable playbooks which can be stored 
 and shared for cross-team use.  Much more advanced functionality is allowed in a playbook but it comes with additional 
-complexity. We will look at three Cisco modules in this section: cisco.ios.ios_commands, cisco.ios.ios_config, and 
-cisco.ios.ios_facts.
+complexity. We will look at three Cisco modules in this section: 
 
-NOTE: These steps are not intended to be used in a production network. They are only offered as a guide for 
-practicing in a lab environment.  Consult with an Ansible professional before using Ansible in production environments.
+- cisco.ios.ios_commands and cisco.nxos.nxos_commands - Basic module to send commands (non-privileged only)  to IOS or NXOS modules 
+- cisco.ios.ios_config & cisco.nxos.nxos_config - Generic IOS/NXOS privileged level commands module (config t) 
+- cisco.ios.ios_facts & cisco.nxos.nxos_facts - Generic IOS/NXOS get_facts command to gather generic information about a device. 
+
+**NOTE: These steps are not intended to be used in a production network. They are only offered as a guide for 
+practicing in a lab environment.  Consult with an Ansible professional before using Ansible in production environments.**
 
 
 ## Configuration and Inventory File
@@ -77,7 +80,7 @@ ansible_connection=ansible.netcommon.network_cli
 ```
 
 Notice that each of the devices are located under a grouping for the device type.  .175 and .176 which are both IOS-XE devices 
-are specfied as **devnet_ios** whereas .177 and .178 are specified as part of the **devnet_nxos** group.  Variables are either 
+are specified as **devnet_ios** whereas .177 and .178 are specified as part of the **devnet_nxos** group.  Variables are either 
 defined in line with the device or can be associated with groups or the built in group all.  Multiple groups can be grouped 
 together using the [<group_name>:children] notation.  
 
@@ -86,7 +89,8 @@ together using the [<group_name>:children] notation.
 Not all variables used in these labs will be stored in the inventory file.  Variables can be stored in either group specific 
 files in the group_vars directory bearing a name that matches the associated group (e.g. group devnet should have file 
 group_vars/devnet.yml).  Ansible will automatically search the host_vars and group_vars directory wherever the playbook was 
-run from.  host_vars should be specified as 
+run from.  Individual host variables should be placed in the host_vars directory within a file matching the device name 
+in the inventory file.  (e.g. DIST-RTR01.yml, DIST-RTR02.yml) 
 
 ## Ad-hoc commands
 Ansible can be used directly from the CLI that it has been installed using the `ansible` command.  For full details on 
@@ -115,30 +119,27 @@ Command structure for basic show commands
 ansible <<hostname>> -m raw -a "<<command>>" -u <<username>> -k
 ```
 
+All arguments shown above are required at a minimum to run from the command line.  A host or group must be specified as 
+shown by the host 10.10.20.175 in the examples below.  Copy and past the commands into the DevBox and observe the output.
+
+
 1. Run a basic show command against a single device
     ```
     ansible 10.10.20.175 -i inventory_basic.yml -m raw -a "show run" -u cisco -k
     ``` 
 
-2. Change show command
-    ```
-    ansible 10.10.20.175 -i inventory_basic.yml -m raw -a "show version" -u cisco -k
-    ``` 
-
-3. Run show command against inventory file
-    - To run against the inventory file you must specify both the inventory file to be used as well as 
-    the group you want to target.  The group **all** is a default group that includes all other groups.  
-    ```
-    ansible all -i inventory_basic.yml -m raw -a "show version" -u cisco -k
-    ```
-
-4. Target group with show command in inventory file
+2. Target group with show command in inventory file
     - Change the group **all** to group **devnet_ios**.
     ```
-    ansible devnet_ios -i inventory_basic.yml -m raw -a "show version" -u cisco -k
+    ansible devnet_ios -i inventory_basic.yml -m raw -a "show run" -u cisco -k
     ```
+
+3. Change show command with piping
+    ```
+    ansible devnet_ios -i inventory_basic.yml -m raw -a "show version | inc Version|uptime|License, " -u cisco -k
+    ``` 
    
-5. Extend ad-hoc commands with **grep**
+4. Extend ad-hoc commands with **grep**
    - Search for file version running by looking for specific output from 'show version' to capture for both IOS-XE and 
    NX-OS devices.  
    - Specify multiple search terms using ```\|``` to separate them.
@@ -147,24 +148,14 @@ ansible <<hostname>> -m raw -a "<<command>>" -u <<username>> -k
     ansible all -i inventory_basic.yml -m raw -a "show version" -u cisco -k | grep 'SUCCESS\|CHANGED\|XE Software,\|NXOS image'
     ```
    
-6. Extend ad-hoc commands with **grep**
-   - Search for usernames in running by looking for specific output from 'show version' to capture for both IOS-XE and 
+5. Extend ad-hoc commands with **grep**
+   - Search for usernames in running by looking for specific output from 'show run' to capture for both IOS-XE and 
    NX-OS devices.  
    ```
     ansible all -i inventory_basic.yml -m raw -a "show run" -u cisco -k | grep 'SUCCESS\|CHANGED\|username'
     ```
-
-7. Send output to file.
-   - Use LINUX command line to send output to a file.  GREP after file has been output
-   ```
-    ansible all -i inventory_basic.yml -m raw -a "show run" -u cisco -k > show_run.txt
-    ...
-    <OUTPUT OMITTED>
-    ...
-    cat show_run.txt | grep 'username\|SUCCESS\|CHANGED'
-   ```
    
-8. Other non-privileged commands
+6. Other non-privileged commands
    - Ping the same IP from multiple devices
    ```
     ansible all -i inventory_basic.yml -m raw -a "ping 172.16.252.21" -u cisco -k
