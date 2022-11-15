@@ -1,0 +1,26 @@
+---
+- name: Pull IP Routing table and parse data to JSON
+  hosts: devnet_ios
+  gather_facts: no
+
+  tasks:
+    - name: "Command: show ip route"
+      cisco.ios.ios_command:
+        commands:
+          - show ip route
+      register: show_ip_route
+
+    - name: Register output to variables using textfsm
+      set_fact:
+        device_neighbors: "{{ show_ip_route.stdout[0] | parse_cli_textfsm('./ntc-templates/ntc_templates/templates/cisco_ios_show_ip_route.textfsm') }}"
+
+    - name: "Task3: Print Output"
+      debug:
+        msg: "{{ device_neighbors }}"
+
+    - name: "Task4: Print Neighbors"
+      debug:
+        msg: "{{ item['PROTOCOL'] }}: {{ item['NETWORK'] }}/{{ item['MASK'] }} -> {{ item['NEXTHOP_IP'] }} ({{ item['NEXTHOP_IF']}})"
+      loop: "{{ device_neighbors }}"
+      loop_control:
+        label: "{{ item['PROTOCOL'] }}"
