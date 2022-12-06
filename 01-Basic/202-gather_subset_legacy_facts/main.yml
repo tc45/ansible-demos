@@ -1,5 +1,5 @@
 ---
-- name: Gather subset legacy facts and display them (Use tags config, hardware, interface, or min)
+- name: 'Gather subset legacy facts and display (Tags: config, hardware, interface, min, or all)'
   hosts: devnet
   gather_facts: no
 
