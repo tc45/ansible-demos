@@ -18,7 +18,7 @@
       debug:
         msg: "{{ device_neighbors }}"
 
-    - name: "Task4: Print Routes to Neighbors"
+    - name: "Task4: Format Output of Routes to Neighbors"
       debug:
         msg: "{{ item['PROTOCOL'] }}: {{ item['NETWORK'] }}/{{ item['MASK'] }} -> {{ item['NEXTHOP_IP'] }} ({{ item['NEXTHOP_IF']}})"
       loop: "{{ device_neighbors }}"
