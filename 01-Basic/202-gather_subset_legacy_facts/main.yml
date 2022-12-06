@@ -1,5 +1,5 @@
 ---
-- name: 'Gather subset legacy facts and display (Tags: config, hardware, interface, min, or all)'
+- name: 'Gather subset legacy facts and display (Tags: config, hardware, interface, min, or all_facts)'
   hosts: devnet
   gather_facts: no
 
@@ -113,11 +113,11 @@
           - all
       register: ios_all_facts
       when: ansible_network_os == 'cisco.ios.ios'
-      tags: all
+      tags: all_facts
 
     - name: Display IOS min facts
       debug: var=ios_all_facts
-      tags: all
+      tags: all_facts
 
     - name: Gather all facts from NXOS devices
       cisco.nxos.nxos_facts:
@@ -125,8 +125,8 @@
           - all
       register: nxos_all_facts
       when: ansible_network_os == 'cisco.nxos.nxos'
-      tags: all
+      tags: all_facts
 
     - name: Display NXOS all facts
       debug: var=nxos_all_facts
-      tags: all
+      tags: all_facts

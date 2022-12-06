@@ -1,4 +1,4 @@
-- name: "Gather minimum facts and network resources (Tags: interfaces, l3_interfaces, acls, hostname, ospf_interfaces, all)"
+- name: "Gather minimum facts and network resources (Tags: interfaces, l3_interfaces, acls, hostname, ospf_interfaces, all_resources)"
   hosts: devnet
   gather_facts: no
 
@@ -121,7 +121,7 @@
         gather_network_resources: all
       when: ansible_network_os == 'cisco.ios.ios'
       register: ios_ospf_interfaces_min_facts
-      tags: all
+      tags: all_resources
 
     - name: Gather ALL network_resources information and minimal legacy facts from NXOS devices
       cisco.nxos.nxos_facts:
@@ -129,14 +129,14 @@
         gather_network_resources: all
       when: ansible_network_os == 'cisco.nxos.nxos'
       register: nxos_all_min_facts
-      tags: all
+      tags: all_resources
 
     - name: Display ALL network_resources information and mininum legacy facts from IOS devices
       debug:
         var: ios_all_min_facts
-      tags: all
+      tags: all_resources
 
     - name: Display ALL network_resources information and mininum legacy facts from NXOS devices
       debug:
         var: nxos_all_min_facts
-      tags: all
+      tags: all_resources
