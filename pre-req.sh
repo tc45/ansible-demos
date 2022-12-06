@@ -11,3 +11,6 @@ ansible-galaxy collection install cisco.ios:==3.3.2
 ansible-galaxy collection install cisco.nxos:==4.0.0
 # Install tree (view directory structure)
 sudo yum -y install tree
+cd netdevops-ansible-demos
+git clone https://github.com/networktocode/ntc-templates.git
+pip3 install textfsm --upgrade
