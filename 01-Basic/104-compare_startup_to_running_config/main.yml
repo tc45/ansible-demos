@@ -1,0 +1,28 @@
+---
+- name: Compare startup to running config
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Compare startup to running config - IOS
+      cisco.ios.ios_config:
+        diff_against: startup
+        diff_ignore_lines:
+          - ntp clock .*
+      when: ansible_network_os=='cisco.ios.ios'
+      register: ios_compare
+
+    - name: Compare startup to running config - NXOS
+      cisco.nxos.nxos_config:
+        diff_against: startup
+        diff_ignore_lines:
+          - ntp clock .*
+      when: ansible_network_os=='cisco.nxos.nxos'
+      register: nxos_compare
+
+    - name: Display Show Startup Comparison Results from IOS devices
+      debug:
+        var: ios_compare.stdout_lines
+
+    - name: Display Show Startup Comparison Results from NXOS devices
+      debug:
+        var: nxos_compare.stdout_lines
