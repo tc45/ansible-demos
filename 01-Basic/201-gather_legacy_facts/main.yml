@@ -4,9 +4,20 @@
   gather_facts: no
 
   tasks:
-    - name: Gather all legacy facts
+    - name: Gather all legacy facts from IOS
       cisco.ios.ios_facts:
         gather_subset: all
       register: ios_facts
+      when: ansible_network_os == 'cisco.ios.ios'
 
-    - debug: var=ios_facts
+    - name: Gather all legacy facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset: all
+      register: nxos_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+
+    - name: Display IOS facts
+      debug: var=ios_facts
+
+    - name: Display NXOS facts
+      debug: var=nxos_facts
