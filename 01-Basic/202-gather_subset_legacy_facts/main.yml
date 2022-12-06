@@ -1,5 +1,5 @@
 ---
-- name: Gather subset legacy facts and display them
+- name: Gather subset legacy facts and display them (Use tags config, hardware, interface, or min)
   hosts: devnet
   gather_facts: no
 
@@ -28,7 +28,7 @@
       debug: var=nxos_config_facts
       tags: config
 
-    # Pull hardware facts
+    # Gather hardware facts from IOS and NXOS devices
     - name: Gather hardware facts from IOS
       cisco.ios.ios_facts:
         gather_subset:
@@ -52,3 +52,29 @@
     - name: Display NXOS hardware facts
       debug: var=nxos_hardware_facts
       tags: hardware
+
+
+    # Gather interface facts from IOS and NXOS devices
+    - name: Gather interface facts from IOS
+      cisco.ios.ios_facts:
+        gather_subset:
+          - interface
+      register: ios_interface_facts
+      when: ansible_network_os == 'cisco.ios.ios'
+      tags: interface
+
+    - name: Display IOS hardware facts
+      debug: var=ios_interface_facts
+      tags: interface
+
+    - name: Gather interface facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - interface
+      register: nxos_interface_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      tags: interface
+
+    - name: Display NXOS interface facts
+      debug: var=nxos_interface_facts
+      tags: interface
