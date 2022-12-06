@@ -45,7 +45,7 @@
       cisco.ios.ios_facts:
         gather_subset:
           - '!hardware'
-          - 'interfaces'
+          - '!interfaces'
           - '!min'
           - '!all'
       when: ansible_network_os == 'cisco.ios.ios'
@@ -56,7 +56,7 @@
       cisco.nxos.nxos_facts:
         gather_subset:
           - '!hardware'
-          - 'interfaces'
+          - '!interfaces'
           - '!min'
           - '!all'
       when: ansible_network_os == 'cisco.nxos.nxos'
