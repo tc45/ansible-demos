@@ -1,4 +1,4 @@
-- name: "Demonstrate connecting to switches of multiple types"
+- name: "Write subset of facts to output files using jinja2 templates"
   hosts: devnet
   gather_facts: no
 
@@ -45,20 +45,20 @@
             Model: {{ hostvars[host].ansible_net_model }}
             Serial: {{ hostvars[host].ansible_net_serialnum }}
             {% endfor %}
-        dest: /tmp/switch-facts.txt
+        dest: switch-facts.txt
       run_once: yes
 
     - name: Write facts to disk using a template file
       template:
         src: templates/facts_output.j2
-        dest: /tmp/switch-facts_from_template_file.txt
+        dest: switch-facts_from_template_file.txt
       run_once: yes
 
     ###
-    # Get running configuration
+    # Get running configuration and save to file
     #
 
-    - name: Backup switch (nxos)
+    - name: Backup NXOS devices
       cisco.nxos.nxos_config:
         backup: yes
       register: backup_nxos_location
