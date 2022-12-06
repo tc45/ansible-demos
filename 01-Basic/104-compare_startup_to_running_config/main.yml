@@ -1,3 +1,5 @@
+# NOTE: Unexpected results.  Still working on this module.
+
 ---
 - name: Compare startup to running config
   hosts: devnet

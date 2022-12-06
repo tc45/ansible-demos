@@ -9,9 +9,19 @@
         gather_subset: min
         gather_network_resources: interfaces
       when: ansible_network_os == 'cisco.ios.ios'
+      register: ios_facts
 
     - name: Gather L2 interfaces resource and minimal legacy facts from NXOS devices
       cisco.nxos.nxos_facts:
         gather_subset: min
         gather_network_resources: interfaces
       when: ansible_network_os == 'cisco.nxos.nxos'
+      register: nxos_facts
+
+    - name: Display Show Facts from IOS devices
+      debug:
+        var: ios_facts
+
+    - name: Display Show Facts from NXOS devices
+        debug:
+          var: nxos_facts
