@@ -1,6 +1,6 @@
 ---
 - name: Gather legacy facts and display them
-  hosts: devnet_ios
+  hosts: devnet
   gather_facts: no
 
   tasks:
