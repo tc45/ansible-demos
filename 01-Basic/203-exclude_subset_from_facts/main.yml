@@ -46,8 +46,6 @@
         gather_subset:
           - '!hardware'
           - '!interfaces'
-          - '!min'
-          - '!all'
       when: ansible_network_os == 'cisco.ios.ios'
       register: ios_config_only_facts
       tags: config
@@ -57,8 +55,6 @@
         gather_subset:
           - '!hardware'
           - '!interfaces'
-          - '!min'
-          - '!all'
       when: ansible_network_os == 'cisco.nxos.nxos'
       register: nxos_config_only_facts
       tags: config
