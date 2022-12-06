@@ -120,7 +120,7 @@
         gather_subset: min
         gather_network_resources: all
       when: ansible_network_os == 'cisco.ios.ios'
-      register: ios_ospf_interfaces_min_facts
+      register: ios_all_min_facts
       tags: all_resources
 
     - name: Gather ALL network_resources information and minimal legacy facts from NXOS devices
