@@ -23,5 +23,5 @@
         var: ios_facts
 
     - name: Display Show Facts from NXOS devices
-        debug:
-          var: nxos_facts
+      debug:
+        var: nxos_facts
