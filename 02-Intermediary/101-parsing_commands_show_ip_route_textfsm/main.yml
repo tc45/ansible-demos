@@ -12,13 +12,13 @@
 
     - name: Register output to variables using textfsm
       set_fact:
-        device_neighbors: "{{ show_ip_route.stdout[0] | parse_cli_textfsm('./ntc-templates/ntc_templates/templates/cisco_ios_show_ip_route.textfsm') }}"
+        device_neighbors: "{{ show_ip_route.stdout[0] | parse_cli_textfsm('../ntc-templates/ntc_templates/templates/cisco_ios_show_ip_route.textfsm') }}"
 
-    - name: "Task3: Print Output"
+    - name: "Task3: Dump variable output for viewing"
       debug:
         msg: "{{ device_neighbors }}"
 
-    - name: "Task4: Print Neighbors"
+    - name: "Task4: Print Routes to Neighbors"
       debug:
         msg: "{{ item['PROTOCOL'] }}: {{ item['NETWORK'] }}/{{ item['MASK'] }} -> {{ item['NEXTHOP_IP'] }} ({{ item['NEXTHOP_IF']}})"
       loop: "{{ device_neighbors }}"
