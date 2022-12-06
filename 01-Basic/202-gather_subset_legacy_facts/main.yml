@@ -78,3 +78,55 @@
     - name: Display NXOS interface facts
       debug: var=nxos_interfaces_facts
       tags: interfaces
+
+
+    # Gather minimum facts from IOS and NXOS devices
+    - name: Gather min facts from IOS
+      cisco.ios.ios_facts:
+        gather_subset:
+          - min
+      register: ios_min_facts
+      when: ansible_network_os == 'cisco.ios.ios'
+      tags: min
+
+    - name: Display IOS min facts
+      debug: var=ios_min_facts
+      tags: min
+
+    - name: Gather min facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - min
+      register: nxos_min_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      tags: min
+
+    - name: Display NXOS min facts
+      debug: var=nxos_min_facts
+      tags: min
+
+
+    # Gather all facts from IOS and NXOS devices
+    - name: Gather all facts from IOS
+      cisco.ios.ios_facts:
+        gather_subset:
+          - all
+      register: ios_all_facts
+      when: ansible_network_os == 'cisco.ios.ios'
+      tags: all
+
+    - name: Display IOS min facts
+      debug: var=ios_all_facts
+      tags: all
+
+    - name: Gather all facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - all
+      register: nxos_all_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      tags: all
+
+    - name: Display NXOS all facts
+      debug: var=nxos_all_facts
+      tags: all
