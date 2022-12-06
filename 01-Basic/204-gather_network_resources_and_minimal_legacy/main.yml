@@ -1,0 +1,148 @@
+# Using the IOS_Facts modules to gather network resource details.
+# For more information go to:
+# https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html
+# https://docs.ansible.com/ansible/latest/collections/cisco/nxos/nxos_facts_module.html
+
+
+- name: "Gather minimum facts and network resources (Tags: interfaces, l3_interfaces, acls, hostname, ospf_interfaces, all_resources)"
+  hosts: devnet
+  gather_facts: no
+
+  tasks:
+    # Gather L2 interaces from network_resources and minimal legacy facts
+    - name: Gather L2 interfaces and minimal legacy facts from IOS devices
+      cisco.ios.ios_facts:
+        gather_subset: min
+        gather_network_resources: interfaces
+      when: ansible_network_os == 'cisco.ios.ios'
+      register: ios_interface_min_facts
+      tags: interfaces
+
+    - name: Gather L2 interfaces and minimal legacy facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset: min
+        gather_network_resources: interfaces
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      register: nxos_interface_min_facts
+      tags: interfaces
+
+    - name: Display L2 interfaces and mininum legacy facts from IOS devices
+      debug:
+        var: ios_interface_min_facts
+      tags: interfaces
+
+    - name: Display L2 interfaces and mininum legacy facts from NXOS devices
+      debug:
+        var: nxos_interface_min_facts
+      tags: interfaces
+
+    # Gather L3 interfaces and minimal legacy facts
+    - name: Gather L3 interfaces and minimal legacy facts from IOS devices
+      cisco.ios.ios_facts:
+        gather_subset: min
+        gather_network_resources: l3_interfaces
+      when: ansible_network_os == 'cisco.ios.ios'
+      register: ios_l3_interface_min_facts
+      tags: l3_interfaces
+
+    - name: Gather L3 interfaces and minimal legacy facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset: min
+        gather_network_resources: l3_interfaces
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      register: nxos_l3_interface_min_facts
+      tags: l3_interfaces
+
+    - name: Display L3 interfaces and mininum legacy facts from IOS devices
+      debug:
+        var: ios_l3_interface_min_facts
+      tags: l3_interfaces
+
+    - name: Display L3 interfaces and mininum legacy facts from NXOS devices
+      debug:
+        var: nxos_l3_interface_min_facts
+      tags: l3_interfaces
+
+
+    # Gather ACLs and minimal legacy facts
+    - name: Gather ACls and minimal legacy facts from IOS devices
+      cisco.ios.ios_facts:
+        gather_subset: min
+        gather_network_resources: acls
+      when: ansible_network_os == 'cisco.ios.ios'
+      register: ios_acls_min_facts
+      tags: acls
+
+    - name: Gather ACLs and minimal legacy facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset: min
+        gather_network_resources: acls
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      register: nxos_acls_min_facts
+      tags: acls
+
+    - name: Display ACLs and mininum legacy facts from IOS devices
+      debug:
+        var: ios_acls_min_facts
+      tags: acls
+
+    - name: Display ACLs and mininum legacy facts from NXOS devices
+      debug:
+        var: nxos_acls_min_facts
+      tags: acls
+
+
+    # Gather OSPF interfaces and minimal legacy facts
+    - name: Gather OSPF interfaces and minimal legacy facts from IOS devices
+      cisco.ios.ios_facts:
+        gather_subset: min
+        gather_network_resources: ospf_interfaces
+      when: ansible_network_os == 'cisco.ios.ios'
+      register: ios_ospf_interfaces_min_facts
+      tags: ospf_interfaces
+
+    - name: Gather OSPF interfaces and minimal legacy facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset: min
+        gather_network_resources: ospf_interfaces
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      register: nxos_ospf_interfaces_min_facts
+      tags: ospf_interfaces
+
+    - name: Display OSPF interfaces and mininum legacy facts from IOS devices
+      debug:
+        var: ios_ospf_interfaces_min_facts
+      tags: ospf_interfaces
+
+    - name: Display OSPF interfaces and mininum legacy facts from NXOS devices
+      debug:
+        var: nxos_ospf_interfaces_min_facts
+      tags: ospf_interfaces
+
+
+    # Gather ALL network_resources information and minimal legacy facts
+    - name: Gather ALL network_resources information and minimal legacy facts from IOS devices
+      cisco.ios.ios_facts:
+        gather_subset: min
+        gather_network_resources: all
+      when: ansible_network_os == 'cisco.ios.ios'
+      register: ios_all_min_facts
+      tags: all_resources
+
+    - name: Gather ALL network_resources information and minimal legacy facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset: min
+        gather_network_resources: all
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      register: nxos_all_min_facts
+      tags: all_resources
+
+    - name: Display ALL network_resources information and mininum legacy facts from IOS devices
+      debug:
+        var: ios_all_min_facts
+      tags: all_resources
+
+    - name: Display ALL network_resources information and mininum legacy facts from NXOS devices
+      debug:
+        var: nxos_all_min_facts
+      tags: all_resources
