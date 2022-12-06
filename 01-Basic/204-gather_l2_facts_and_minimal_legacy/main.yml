@@ -1,4 +1,4 @@
-- name: "Gather L2 interface data and network resources (Tags: interfaces, l3_interfaces, acls, hostname, ospf_interfaces, all"
+- name: "Gather minimum facts and network resources (Tags: interfaces, l3_interfaces, acls, hostname, ospf_interfaces, all"
   hosts: devnet
   gather_facts: no
 
