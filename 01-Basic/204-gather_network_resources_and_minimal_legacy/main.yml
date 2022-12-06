@@ -1,9 +1,9 @@
-- name: "Gather minimum facts and network resources (Tags: interfaces, l3_interfaces, acls, hostname, ospf_interfaces, all"
+- name: "Gather minimum facts and network resources (Tags: interfaces, l3_interfaces, acls, hostname, ospf_interfaces, all)"
   hosts: devnet
   gather_facts: no
 
   tasks:
-
+    # Gather L2 interaces from network_resources and minimal legacy facts
     - name: Gather L2 interfaces and minimal legacy facts from IOS devices
       cisco.ios.ios_facts:
         gather_subset: min
