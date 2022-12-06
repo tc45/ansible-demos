@@ -26,6 +26,13 @@
         var: hostvars['DIST-RTR01']
       run_once: yes
 
+    - name: Create facts dir to store facts output
+      file:
+        path: "./facts/"
+        state: directory
+        recurse: yes
+      run_once: yes
+
     - name: Write facts to disk using an inline template
       copy:
         content: |
@@ -45,13 +52,13 @@
             Model: {{ hostvars[host].ansible_net_model }}
             Serial: {{ hostvars[host].ansible_net_serialnum }}
             {% endfor %}
-        dest: switch-facts.txt
+        dest: ./facts/switch-facts.txt
       run_once: yes
 
     - name: Write facts to disk using a template file
       template:
         src: templates/facts_output.j2
-        dest: switch-facts_from_template_file.txt
+        dest: ./facts/switch-facts_from_template_file.txt
       run_once: yes
 
     ###
@@ -64,26 +71,27 @@
       register: backup_nxos_location
       when: ansible_network_os == 'cisco.nxos.nxos'
 
-    - name: backup switch (ios)
+    - name: Backup IOS devices
       cisco.ios.ios_config:
         backup: yes
       register: backup_ios_location
       when: ansible_network_os == 'cisco.ios.ios'
 
-    - name: Create backup dir
+    - name: Create backup dir to store backup files
       file:
-        path: "./backups/{{ inventory_hostname }}"
+        path: "./backups/"
         state: directory
         recurse: yes
+      run_once: yes
 
     - name: Copy backup files into /tmp/backups/ (nxos)
       copy:
         src: "{{ backup_nxos_location.backup_path }}"
-        dest: "./backups/{{ inventory_hostname }}/{{ inventory_hostname }}.txt"
+        dest: "./backups/{{ inventory_hostname }}.txt"
       when: ansible_network_os == 'cisco.nxos.nxos'
 
     - name: Copy backup files into /tmp/backups/ (ios)
       copy:
         src: "{{ backup_ios_location.backup_path }}"
-        dest: "./backups/{{ inventory_hostname }}/{{ inventory_hostname }}.txt"
+        dest: "./backups/{{ inventory_hostname }}.txt"
       when: ansible_network_os == 'cisco.ios.ios'
