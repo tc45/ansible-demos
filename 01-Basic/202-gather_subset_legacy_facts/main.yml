@@ -58,23 +58,23 @@
     - name: Gather interface facts from IOS
       cisco.ios.ios_facts:
         gather_subset:
-          - interface
-      register: ios_interface_facts
+          - interfaces
+      register: ios_interfaces_facts
       when: ansible_network_os == 'cisco.ios.ios'
-      tags: interface
+      tags: interfaces
 
     - name: Display IOS hardware facts
-      debug: var=ios_interface_facts
-      tags: interface
+      debug: var=ios_interfaces_facts
+      tags: interfaces
 
     - name: Gather interface facts from NXOS devices
       cisco.nxos.nxos_facts:
         gather_subset:
-          - interface
-      register: nxos_interface_facts
+          - interfaces
+      register: nxos_interfaces_facts
       when: ansible_network_os == 'cisco.nxos.nxos'
-      tags: interface
+      tags: interfaces
 
     - name: Display NXOS interface facts
-      debug: var=nxos_interface_facts
-      tags: interface
+      debug: var=nxos_interfaces_facts
+      tags: interfaces
