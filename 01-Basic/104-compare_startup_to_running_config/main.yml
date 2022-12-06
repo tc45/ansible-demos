@@ -1,6 +1,6 @@
 ---
 - name: Compare startup to running config
-  hosts: all
+  hosts: devnet
   gather_facts: no
   tasks:
     - name: Compare startup to running config - IOS
