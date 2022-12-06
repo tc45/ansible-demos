@@ -21,8 +21,8 @@
 
     - name: Display Show Startup Comparison Results from IOS devices
       debug:
-        var: ios_compare.stdout_lines
+        var: ios_compare
 
     - name: Display Show Startup Comparison Results from NXOS devices
       debug:
-        var: nxos_compare.stdout_lines
+        var: nxos_compare
