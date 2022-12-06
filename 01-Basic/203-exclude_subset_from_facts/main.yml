@@ -44,9 +44,9 @@
     - name: Gather only configs from IOS devices using facts
       cisco.ios.ios_facts:
         gather_subset:
+          - '!default'
           - '!hardware'
           - '!interfaces'
-          - '!default'
       when: ansible_network_os == 'cisco.ios.ios'
       register: ios_config_only_facts
       tags: config
@@ -54,9 +54,11 @@
     - name: Gather only configs from NXOS devices using facts
       cisco.nxos.nxos_facts:
         gather_subset:
+          - '!default'
           - '!hardware'
           - '!interfaces'
-          - '!default'
+          - '!legacy'
+          - '!features'
       when: ansible_network_os == 'cisco.nxos.nxos'
       register: nxos_config_only_facts
       tags: config
