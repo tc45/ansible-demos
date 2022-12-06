@@ -4,23 +4,51 @@
   gather_facts: no
 
   tasks:
-    - name: Gather all legacy facts from IOS
+    - name: Gather config facts from IOS
       cisco.ios.ios_facts:
         gather_subset:
           - config
-      register: subset_config
+      register: ios_config_facts
       when: ansible_network_os == 'cisco.ios.ios'
       tags: config
 
-    - name: Gather all legacy facts from NXOS devices
-      cisco.nxos.nxos_facts:
-        gather_subset: all
-      register: nxos_facts
-      when: ansible_network_os == 'cisco.nxos.nxos'
-
-    - name: Display IOS facts
-      debug: var=subset_config
+    - name: Display IOS config facts
+      debug: var=ios_config_facts
       tags: config
 
-    - name: Display NXOS facts
-      debug: var=nxos_facts
+    - name: Gather config facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - hardware
+      register: nxos_config_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      tags: config
+
+    - name: Display NXOS config facts
+      debug: var=nxos_config_facts
+      tags: config
+
+    # Pull hardware facts
+    - name: Gather hardware facts from IOS
+      cisco.ios.ios_facts:
+        gather_subset:
+          - hardware
+      register: ios_hardware_facts
+      when: ansible_network_os == 'cisco.ios.ios'
+      tags: hardware
+
+    - name: Display IOS hardware facts
+      debug: var=ios_hardware_facts
+      tags: hardware
+
+    - name: Gather hardware facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - hardware
+      register: nxos_hardware_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      tags: hardware
+
+    - name: Display NXOS hardware facts
+      debug: var=nxos_hardware_facts
+      tags: hardware
