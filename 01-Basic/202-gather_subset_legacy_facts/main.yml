@@ -1,3 +1,8 @@
+# Using the IOS_Facts modules to gather legacy facts (Version, L2 interfaces, hardware, config).
+# For more information go to:
+# https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html
+# https://docs.ansible.com/ansible/latest/collections/cisco/nxos/nxos_facts_module.html
+
 ---
 - name: 'Gather subset legacy facts and display (Tags: config, hardware, interface, min, or all_facts)'
   hosts: devnet

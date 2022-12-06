@@ -1,3 +1,9 @@
+# Using the IOS_Facts modules to gather network resource details.
+# For more information go to:
+# https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html
+# https://docs.ansible.com/ansible/latest/collections/cisco/nxos/nxos_facts_module.html
+
+
 - name: "Gather minimum facts and network resources (Tags: interfaces, l3_interfaces, acls, hostname, ospf_interfaces, all_resources)"
   hosts: devnet
   gather_facts: no
