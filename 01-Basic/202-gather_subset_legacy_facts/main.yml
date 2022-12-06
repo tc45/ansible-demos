@@ -1,0 +1,26 @@
+---
+- name: Gather subset legacy facts and display them
+  hosts: devnet
+  gather_facts: no
+
+  tasks:
+    - name: Gather all legacy facts from IOS
+      cisco.ios.ios_facts:
+        gather_subset:
+          - config
+      register: subset_config
+      when: ansible_network_os == 'cisco.ios.ios'
+      tags: config
+
+    - name: Gather all legacy facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset: all
+      register: nxos_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+
+    - name: Display IOS facts
+      debug: var=subset_config
+      tags: config
+
+    - name: Display NXOS facts
+      debug: var=nxos_facts
