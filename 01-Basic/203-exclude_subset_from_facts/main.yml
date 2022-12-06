@@ -1,0 +1,75 @@
+# Using the IOS_Facts modules to gather facts but exclude certain ones.
+# For more information go to:
+# https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html
+# https://docs.ansible.com/ansible/latest/collections/cisco/nxos/nxos_facts_module.html
+
+
+- name: "Exclude certain facts from being gathered to save time"
+  hosts: devnet
+  gather_facts: no
+
+  tasks:
+    # Gather L2 interaces from network_resources and don't gather any legacy facts
+    - name: Gather L2 interfaces and EXCLUDE minimal legacy facts from IOS devices
+      cisco.ios.ios_facts:
+        gather_subset:
+          - '!all'
+          - '!min'
+        gather_network_resources: interfaces
+      when: ansible_network_os == 'cisco.ios.ios'
+      register: ios_interface_min_facts_only
+      tags: interfaces
+
+    - name: Gather L2 interfaces and EXCLUDE minimal legacy facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - '!all'
+          - '!min'
+        gather_network_resources: interfaces
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      register: nxos_interface_min_facts_only
+      tags: interfaces
+
+    - name: Display L2 interfaces with no legacy facts from IOS devices
+      debug:
+        var: ios_interface_min_facts_only
+      tags: interfaces
+
+    - name: Display L2 interfaces with no legacy facts from NXOS devices
+      debug:
+        var: nxos_interface_min_facts_only
+      tags: interfaces
+
+    # Gather L3 interfaces and minimal legacy facts
+    - name: Gather only configs from IOS devices using facts
+      cisco.ios.ios_facts:
+        gather_subset:
+          - '!default'
+          - '!hardware'
+          - '!interfaces'
+      when: ansible_network_os == 'cisco.ios.ios'
+      register: ios_config_only_facts
+      tags: config
+
+    - name: Gather only configs from NXOS devices using facts
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - '!default'
+          - '!hardware'
+          - '!interfaces'
+          - '!legacy'
+          - '!features'
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      register: nxos_config_only_facts
+      tags: config
+
+    - name: Display config from facts for IOS devices
+      debug:
+        var: ios_config_only_facts
+      tags: config
+
+    - name: Display config from facts for NXOS devices
+      debug:
+        var: nxos_config_only_facts
+      tags: config
+
