@@ -1,0 +1,14 @@
+---
+- name: Get ARP information
+  hosts: all
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: show ip arp
+      cisco.ios.ios_command:
+        commands: show ip arp
+
+      register: show_ip_arp
+
+    - debug: var=show_ip_arp.stdout_lines

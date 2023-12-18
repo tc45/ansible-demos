@@ -1,0 +1,26 @@
+---
+- name: run show version on remote devices
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: run show version on Cisco NXOS devices
+      cisco.nxos.nxos_command:
+        commands: show version
+      when: ansible_network_os=='cisco.nxos.nxos'
+      register: nxos_show_version
+
+    - name: run show version on Cisco IOS devices
+      cisco.ios.ios_command:
+        commands: show version
+      when: ansible_network_os=='cisco.ios.ios'
+      register: ios_show_version
+
+    - name: Display Show Versions from NXOS devices
+      debug:
+        var: nxos_show_version.stdout_lines
+      when: ansible_network_os=='cisco.nxos.nxos'
+
+    - name: Display Show Versions from IOS devices
+      debug:
+        var: ios_show_version.stdout_lines
+      when: ansible_network_os=='cisco.ios.ios'

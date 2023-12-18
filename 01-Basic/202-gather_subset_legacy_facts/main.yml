@@ -1,0 +1,137 @@
+# Using the IOS_Facts modules to gather legacy facts (Version, L2 interfaces, hardware, config).
+# For more information go to:
+# https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_facts_module.html
+# https://docs.ansible.com/ansible/latest/collections/cisco/nxos/nxos_facts_module.html
+
+---
+- name: 'Gather subset legacy facts and display (Tags: config, hardware, interface, min, or all_facts)'
+  hosts: devnet
+  gather_facts: no
+
+  tasks:
+    - name: Gather config facts from IOS
+      cisco.ios.ios_facts:
+        gather_subset:
+          - config
+      register: ios_config_facts
+      when: ansible_network_os == 'cisco.ios.ios'
+      tags: config
+
+    - name: Display IOS config facts
+      debug: var=ios_config_facts
+      tags: config
+
+    - name: Gather config facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - hardware
+      register: nxos_config_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      tags: config
+
+    - name: Display NXOS config facts
+      debug: var=nxos_config_facts
+      tags: config
+
+    # Gather hardware facts from IOS and NXOS devices
+    - name: Gather hardware facts from IOS
+      cisco.ios.ios_facts:
+        gather_subset:
+          - hardware
+      register: ios_hardware_facts
+      when: ansible_network_os == 'cisco.ios.ios'
+      tags: hardware
+
+    - name: Display IOS hardware facts
+      debug: var=ios_hardware_facts
+      tags: hardware
+
+    - name: Gather hardware facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - hardware
+      register: nxos_hardware_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      tags: hardware
+
+    - name: Display NXOS hardware facts
+      debug: var=nxos_hardware_facts
+      tags: hardware
+
+
+    # Gather interface facts from IOS and NXOS devices
+    - name: Gather interface facts from IOS
+      cisco.ios.ios_facts:
+        gather_subset:
+          - interfaces
+      register: ios_interfaces_facts
+      when: ansible_network_os == 'cisco.ios.ios'
+      tags: interfaces
+
+    - name: Display IOS hardware facts
+      debug: var=ios_interfaces_facts
+      tags: interfaces
+
+    - name: Gather interface facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - interfaces
+      register: nxos_interfaces_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      tags: interfaces
+
+    - name: Display NXOS interface facts
+      debug: var=nxos_interfaces_facts
+      tags: interfaces
+
+
+    # Gather minimum facts from IOS and NXOS devices
+    - name: Gather min facts from IOS
+      cisco.ios.ios_facts:
+        gather_subset:
+          - min
+      register: ios_min_facts
+      when: ansible_network_os == 'cisco.ios.ios'
+      tags: min
+
+    - name: Display IOS min facts
+      debug: var=ios_min_facts
+      tags: min
+
+    - name: Gather min facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - min
+      register: nxos_min_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      tags: min
+
+    - name: Display NXOS min facts
+      debug: var=nxos_min_facts
+      tags: min
+
+
+    # Gather all facts from IOS and NXOS devices
+    - name: Gather all facts from IOS
+      cisco.ios.ios_facts:
+        gather_subset:
+          - all
+      register: ios_all_facts
+      when: ansible_network_os == 'cisco.ios.ios'
+      tags: all_facts
+
+    - name: Display IOS min facts
+      debug: var=ios_all_facts
+      tags: all_facts
+
+    - name: Gather all facts from NXOS devices
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - all
+      register: nxos_all_facts
+      when: ansible_network_os == 'cisco.nxos.nxos'
+      tags: all_facts
+
+    - name: Display NXOS all facts
+      debug: var=nxos_all_facts
+      tags: all_facts

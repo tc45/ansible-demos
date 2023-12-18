@@ -1,0 +1,41 @@
+all:
+  children:
+    devnet:
+      children:
+        devnet_nxos:
+          hosts:
+            DIST-SW01:
+              ansible_host: 10.10.20.177
+            DIST-SW02:
+              ansible_host: 10.10.20.178
+          vars:
+              ansible_connection: ansible.netcommon.network_cli
+              ansible_network_os: cisco.nxos.nxos
+              ansible_user: cisco
+              ansible_password: cisco
+        devnet_ios:
+          hosts:
+            DIST-RTR01:
+              ansible_host: 10.10.20.175
+              compliance_hipaa: yes
+            DIST-RTR02:
+              ansible_host: 10.10.20.176
+
+          vars:
+              ansible_connection: ansible.netcommon.network_cli
+              ansible_network_os: cisco.ios.ios
+
+  vars:
+    ansible_user: cisco
+    ansible_password: cisco
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_become_password: cisco
+    psns:
+      - name: US_EAST_PSN1
+        address: 1.1.1.1
+      - name: US_EAST_PSN2
+        address: 1.1.1.2
+      - name: US_WEST_PSN1
+        address: 1.1.1.3
+    psn_key: test123

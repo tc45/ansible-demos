@@ -1,0 +1,38 @@
+# Individual devices can be specified with variables added directly inline.  Device doesn't exist in lab.  Timeout of 1
+# to quickly timeout SSH when it tries to connect.
+DIST-SW00 ansible_host=10.10.20.174 ansible_network_os=cisco.ios.ios timeout=1
+
+# Create group called devnet_ios and add all IOS-XE devices to it
+[devnet_ios]
+DIST-RTR01 ansible_host=10.10.20.175
+DIST-RTR02 ansible_host=10.10.20.176
+
+# Assign variables to the group called devnet_ios.  ansible_network is well known.  psn1/2/3 are custom variables
+[devnet_ios:vars]
+ansible_network_os=cisco.ios.ios
+
+# Create second group called devnet_nxos and assign NXOS devices to it
+[devnet_nxos]
+DIST-SW01 ansible_host=10.10.20.177
+DIST-SW02 ansible_host=10.10.20.178
+
+# Assign unique variables to devnet_nxos group
+[devnet_nxos:vars]
+ansible_network_os=cisco.nxos.nxos
+
+# Create parent group called devnet that includes the child groups devnet_ios and devnet_nxos
+[devnet:children]
+devnet_ios
+devnet_nxos
+
+# Define variables applicable to all devices in inventory file.  All that start with ansible_ are well known.
+#  psn_encrypted is a custom variable custom.
+[all:vars]
+ansible_become=yes
+ansible_become_method=enable
+ansible_become_password=cisco
+ansible_user=cisco
+ansible_password=cisco
+ansible_connection=ansible.netcommon.network_cli
+
+
